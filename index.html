@@ -26,7 +26,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -63,7 +63,7 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3 { font-family: 'DM Serif Display', serif; font-weight: 400; }
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 
         /* AMBIENT BACKGROUND */
         .ambient {
@@ -171,7 +171,7 @@
         }
 
         .logo span {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.35rem;
         }
 
@@ -228,6 +228,16 @@
             padding: 10rem 2rem 4rem;
             text-align: center;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero > * {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero-glow {
@@ -237,6 +247,7 @@
             transform: translateX(-50%);
             width: 800px;
             height: 500px;
+            max-width: none;
             background: radial-gradient(ellipse, rgba(255,51,102,0.1) 0%, transparent 70%);
             pointer-events: none;
         }
@@ -316,6 +327,8 @@
             justify-content: center;
             flex-wrap: wrap;
             position: relative;
+            max-width: none;
+            width: 100%;
         }
 
         .btn-primary {
@@ -369,6 +382,8 @@
             margin-top: 3.5rem;
             flex-wrap: wrap;
             position: relative;
+            max-width: none;
+            width: 100%;
         }
 
         .pillar-chip {
@@ -404,6 +419,8 @@
             display: flex;
             justify-content: center;
             position: relative;
+            max-width: none;
+            width: 100%;
         }
 
         .hero-phone::before {
@@ -440,7 +457,7 @@
         }
 
         .phone-greeting {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.6rem;
             margin-bottom: 0.2rem;
         }
@@ -576,7 +593,7 @@
         }
 
         .tagline-section blockquote {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(1.6rem, 3.5vw, 2.6rem);
             max-width: 750px;
             margin: 0 auto;
@@ -1015,7 +1032,7 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.4rem;
             margin: 0 auto 1.25rem;
             box-shadow: 0 8px 24px rgba(255,51,102,0.2);
@@ -1252,15 +1269,8 @@
             .comparison-table { font-size: 0.8rem; }
         }
 
-        @media (max-width: 600px) {
-            .bento-grid { grid-template-columns: 1fr; }
-            .bento-card.span-2 { grid-column: span 1; }
-            .pillars-strip { gap: 0.5rem; }
-            .pillar-chip { padding: 0.5rem 0.9rem; }
-            .pillar-chip span { font-size: 0.78rem; }
-        }
-
         @media (max-width: 768px) {
+            /* Nav: hide links on mobile, show hamburger */
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
             .nav-links.active {
@@ -1275,6 +1285,69 @@
                 border-bottom: 1px solid var(--border);
                 box-shadow: 0 16px 40px rgba(0,0,0,0.4);
             }
+
+            /* Hero: scale down fonts and stack buttons */
+            .hero h1 { font-size: clamp(2.2rem, 6vw, 3.5rem); }
+            .hero > p { font-size: 1rem; }
+            .hero-ctas { flex-direction: column; align-items: center; }
+            .hero-ctas .btn-primary,
+            .hero-ctas .btn-secondary { width: 100%; max-width: 300px; justify-content: center; }
+
+            /* Bento: single column */
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-card.span-2 { grid-column: span 1; }
+
+            /* Features: single column */
+            .features-grid { grid-template-columns: 1fr; }
+
+            /* Pillars: single column */
+            .pillars-grid { grid-template-columns: 1fr; }
+
+            /* Steps: single column */
+            .steps { grid-template-columns: 1fr; }
+
+            /* Testimonials: single column */
+            .testimonials-grid { grid-template-columns: 1fr; }
+
+            /* Comparison table: horizontal scroll */
+            .comparison-table {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .comparison-row {
+                min-width: 500px;
+            }
+
+            /* Section headers */
+            .section-header h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); }
+            .section-header p { font-size: 0.95rem; }
+
+            /* Spark section */
+            .spark-content h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); }
+
+            /* Final CTA */
+            .final-cta h2 { font-size: clamp(1.8rem, 5vw, 3rem); }
+            .final-cta p { font-size: 1rem; }
+
+            /* Tagline */
+            .tagline-section blockquote { font-size: clamp(1.3rem, 3vw, 2rem); }
+
+            /* Pillar chips */
+            .pillars-strip { gap: 0.5rem; }
+            .pillar-chip { padding: 0.5rem 0.9rem; }
+            .pillar-chip span { font-size: 0.78rem; }
+        }
+
+        @media (max-width: 480px) {
+            nav { padding: 0.75rem 1rem; }
+            .hero { padding: 7rem 1rem 2.5rem; }
+            .hero h1 { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+            .hero > p { font-size: 0.92rem; line-height: 1.6; }
+            .features, .bento, .pillars-section, .spark-section, .how-it-works, .testimonials, .comparison { padding: 4rem 1rem; }
+            .tagline-section { padding: 4rem 1rem; }
+            .final-cta { padding: 5rem 1rem; }
+            .contact-section { padding: 3rem 1rem; }
+            .phone-frame { width: 240px; height: 490px; }
         }
 
         /* ANIMATIONS */
@@ -1748,7 +1821,7 @@
     <!-- CONTACT -->
     <section class="contact-section fade-in" id="contact">
         <div style="font-size:2.5rem;margin-bottom:1rem;">&#9993;</div>
-        <h2 style="font-family:'DM Serif Display',serif;font-size:2rem;margin-bottom:0.75rem;">Send Us a Message</h2>
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:2rem;margin-bottom:0.75rem;">Send Us a Message</h2>
         <p style="color:rgba(255,255,255,0.6);max-width:480px;margin:0 auto 1.5rem;">Have a question, idea, or just want to say hi? We'd love to hear from you.</p>
         <form class="contact-form" id="contactForm" action="https://formspree.io/f/mgonopba" method="POST">
             <input type="text" name="name" placeholder="Your name" required>
