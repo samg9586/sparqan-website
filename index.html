@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SparQan — Design Your Life Across Four Pillars</title>
+    <meta name="description" content="SparQan is the only goal app that optimizes your health, relationships, finances, and career — together. Guided by specialized AI coaches.">
+    <meta name="keywords" content="goal setting, life design, AI coach, habit tracker, health, relationships, finance, career, personal growth">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="SparQan — Design Your Life">
+    <meta property="og:description" content="The only goal app that optimizes all four pillars of your life. AI-powered coaching for health, relationships, finance, and career.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sparqan.com">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SparQan — Design Your Life">
+    <meta name="twitter:description" content="AI-powered life design across four pillars.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23FF3366'/><text x='50' y='62' font-size='36' text-anchor='middle' fill='white'>S</text></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent: #FF3366;
+            --accent-orange: #FF8033;
+            --bg: #0D0517;
+            --bg-card: #151020;
+            --bg-card-hover: #1C1530;
+            --text: #FFFFFF;
+            --text-secondary: rgba(255,255,255,0.55);
+            --border: rgba(255,255,255,0.08);
+
+            --health: #00D4AA;
+            --health-dark: #008B70;
+            --relationships: #FF33AA;
+            --relationships-dark: #9933CC;
+            --finance: #FFAA33;
+            --finance-dark: #FF7733;
+            --career: #3366FF;
+            --career-dark: #7733FF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'DM Serif Display', serif; font-weight: 400; }
+
+        /* COSMIC BACKGROUND */
+        .cosmic-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .cosmic-bg::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(255,51,102,0.06) 0%, transparent 70%);
+        }
+
+        .cosmic-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(51,102,255,0.04) 0%, transparent 70%);
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(13, 5, 23, 0.8);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .logo span {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.3rem;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: white; }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: white !important;
+            padding: 0.55rem 1.4rem;
+            border-radius: 100px;
+            font-weight: 600 !important;
+            transition: transform 0.2s, box-shadow 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(255, 51, 102, 0.35);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            margin: 5px 0;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 11rem 2rem 6rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 51, 102, 0.1);
+            border: 1px solid rgba(255, 51, 102, 0.2);
+            padding: 0.4rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6.5vw, 5rem);
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero > p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
+            color: white;
+            padding: 0.9rem 2.2rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 51, 102, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            padding: 0.9rem 2.2rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-2px);
+        }
+
+        /* PILLARS VISUAL */
+        .pillars-strip {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .pillar-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 1.4rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            transition: all 0.3s;
+        }
+
+        .pillar-chip:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        .pillar-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .pillar-chip span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pillar-chip small {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* PHONE MOCKUP */
+        .hero-phone {
+            margin-top: 4rem;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone-frame {
+            width: 280px;
+            height: 560px;
+            background: linear-gradient(160deg, var(--accent), #7733FF, var(--career));
+            border-radius: 40px;
+            padding: 3px;
+            box-shadow: 0 40px 100px rgba(255, 51, 102, 0.15), 0 0 0 1px rgba(255,255,255,0.05);
+        }
+
+        .phone-inner {
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            border-radius: 38px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem 1.5rem 1.5rem;
+        }
+
+        .phone-greeting {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .phone-sub {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .phone-pillars {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .phone-pillar {
+            border-radius: 14px;
+            padding: 0.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-pillar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.15;
+            border-radius: 14px;
+        }
+
+        .phone-pillar-emoji {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .phone-pillar-name {
+            font-size: 0.65rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+
+        .phone-pillar-bar {
+            height: 3px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.15);
+            overflow: hidden;
+        }
+
+        .phone-pillar-fill {
+            height: 100%;
+            border-radius: 2px;
+        }
+
+        .phone-spark {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            margin-top: auto;
+        }
+
+        .phone-spark-label {
+            font-size: 0.6rem;
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+        }
+
+        .phone-spark-text {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* TAGLINE SECTION */
+        .tagline-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tagline-section blockquote {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.4;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .tagline-section blockquote em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 7rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.75rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .features-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* PILLARS SECTION */
+        .pillars-section {
+            padding: 7rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .pillars-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .pillar-card {
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+        }
+
+        .pillar-card .pillar-emoji {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .pillar-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            position: relative;
+        }
+
+        .pillar-card .pillar-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .pillar-tag {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 100px;
+            background: rgba(255,255,255,0.06);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* SPARK AI */
+        .spark-section {
+            padding: 7rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .spark-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .spark-content h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin-bottom: 1.25rem;
+        }
+
+        .spark-content > p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .coach-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .coach-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .coach-item:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .coach-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .coach-info h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .coach-info p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* SPARK VISUAL */
+        .spark-visual {
+            position: relative;
+        }
+
+        .chat-mockup {
+            background: var(--bg-card);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .chat-header-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .chat-header h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .chat-header small {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .chat-msg {
+            padding: 0.8rem 1rem;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            max-width: 85%;
+        }
+
+        .chat-msg.user {
+            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-msg.ai {
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.85);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-input {
+            margin-top: 1rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0.7rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-input span {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .chat-input-send {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-input-send svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* HOW IT WORKS */
+        .how-it-works {
+            padding: 7rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .steps {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-num {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.3rem;
+            margin: 0 auto 1.25rem;
+        }
+
+        .step h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* CONSTELLATION SECTION */
+        .constellation {
+            padding: 7rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .constellation::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 40%, rgba(255,51,102,0.04), transparent 60%);
+        }
+
+        .constellation h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .constellation > p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 550px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .constellation-visual {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            padding: 3rem 2rem;
+            position: relative;
+        }
+
+        .star-map {
+            position: relative;
+            height: 300px;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            animation: twinkle 3s ease-in-out infinite;
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .star-line {
+            position: absolute;
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            transform-origin: left center;
+        }
+
+        /* CTA */
+        .final-cta {
+            padding: 7rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 80%, rgba(255,51,102,0.08), transparent 50%),
+                        radial-gradient(circle at 30% 20%, rgba(51,102,255,0.05), transparent 50%);
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .final-cta p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+        }
+
+        .final-cta .btn-primary {
+            position: relative;
+        }
+
+        .final-tagline {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.25em;
+            text-transform: lowercase;
+            font-weight: 500;
+            position: relative;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: white; }
+
+        footer p { font-size: 0.8rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .features-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+            .pillars-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+            .spark-inner { grid-template-columns: 1fr; }
+            .spark-visual { order: -1; }
+            .steps { grid-template-columns: 1fr; max-width: 400px; }
+            .hero { padding: 8rem 1.5rem 4rem; }
+            .pillars-strip { gap: 0.75rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg);
+                padding: 1.5rem 2rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .phone-frame { width: 240px; height: 480px; }
+        }
+
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s, transform 0.7s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cosmic-bg"></div>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon">S</div>
+                <span>SparQan</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pillars">Pillars</a></li>
+                <li><a href="#spark">Spark AI</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#download" class="nav-cta">Download</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">Coming Soon to the App Store</div>
+        <h1>Design your life across<br><span class="gradient-text">four pillars.</span></h1>
+        <p>Most people optimize one area of life and neglect the rest. SparQan helps you build health, relationships, finances, and career — together, with AI-powered coaching.</p>
+        <div class="hero-ctas">
+            <a href="#download" class="btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Get SparQan
+            </a>
+            <a href="#features" class="btn-secondary">Explore Features</a>
+        </div>
+
+        <!-- Pillar Chips -->
+        <div class="pillars-strip">
+            <div class="pillar-chip">
+                <div class="pillar-dot" style="background: var(--health);"></div>
+                <span>Health</span>
+            </div>
+            <div class="pillar-chip">
+                <div class="pillar-dot" style="background: var(--relationships);"></div>
+                <span>Relationships</span>
+            </div>
+            <div class="pillar-chip">
+                <div class="pillar-dot" style="background: var(--finance);"></div>
+                <span>Finance</span>
+            </div>
+            <div class="pillar-chip">
+                <div class="pillar-dot" style="background: var(--career);"></div>
+                <span>Career</span>
+            </div>
+        </div>
+
+        <!-- Phone Mockup -->
+        <div class="hero-phone">
+            <div class="phone-frame">
+                <div class="phone-inner">
+                    <div class="phone-greeting">Good morning</div>
+                    <div class="phone-sub">3 goals in focus today</div>
+
+                    <div class="phone-pillars">
+                        <div class="phone-pillar" style="background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.15);">
+                            <div class="phone-pillar-emoji">&#10084;&#65039;</div>
+                            <div class="phone-pillar-name" style="color: var(--health);">Health</div>
+                            <div class="phone-pillar-bar"><div class="phone-pillar-fill" style="width: 72%; background: var(--health);"></div></div>
+                        </div>
+                        <div class="phone-pillar" style="background: rgba(255,51,170,0.08); border: 1px solid rgba(255,51,170,0.15);">
+                            <div class="phone-pillar-emoji">&#129309;</div>
+                            <div class="phone-pillar-name" style="color: var(--relationships);">Relationships</div>
+                            <div class="phone-pillar-bar"><div class="phone-pillar-fill" style="width: 58%; background: var(--relationships);"></div></div>
+                        </div>
+                        <div class="phone-pillar" style="background: rgba(255,170,51,0.08); border: 1px solid rgba(255,170,51,0.15);">
+                            <div class="phone-pillar-emoji">&#128176;</div>
+                            <div class="phone-pillar-name" style="color: var(--finance);">Finance</div>
+                            <div class="phone-pillar-bar"><div class="phone-pillar-fill" style="width: 45%; background: var(--finance);"></div></div>
+                        </div>
+                        <div class="phone-pillar" style="background: rgba(51,102,255,0.08); border: 1px solid rgba(51,102,255,0.15);">
+                            <div class="phone-pillar-emoji">&#128640;</div>
+                            <div class="phone-pillar-name" style="color: var(--career);">Career</div>
+                            <div class="phone-pillar-bar"><div class="phone-pillar-fill" style="width: 83%; background: var(--career);"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="phone-spark">
+                        <div class="phone-spark-label">&#10024; Spark AI</div>
+                        <div class="phone-spark-text">You've been crushing your career goals. Let's bring the same energy to your savings this week.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TAGLINE -->
+    <section class="tagline-section">
+        <blockquote>
+            "Your life is made of four pillars.<br>Most people optimize one.<br>The extraordinary <em>design all four.</em>"
+        </blockquote>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <div class="section-badge">Features</div>
+            <h2>Everything to design an extraordinary life</h2>
+            <p>Smart tools that make personal growth feel intentional, not overwhelming.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon" style="background: rgba(255,51,102,0.1);">&#127919;</div>
+                <h3>Hierarchical Goals</h3>
+                <p>Break yearly visions into quarterly, monthly, and weekly goals. Every day connects to your bigger purpose.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon" style="background: rgba(255,128,51,0.1);">&#129302;</div>
+                <h3>Spark AI Coaches</h3>
+                <p>Five specialized AI coaches for health, relationships, finance, career, and general life design. Real coaching, not generic advice.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon" style="background: rgba(51,102,255,0.1);">&#127756;</div>
+                <h3>Constellation Map</h3>
+                <p>Visualize your goals as a cosmic star map. Watch your constellation grow brighter as you make progress.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon" style="background: rgba(0,212,170,0.1);">&#128170;</div>
+                <h3>Health & Vitality</h3>
+                <p>Track workouts, guided breathwork, and daily vitality. Syncs with Apple Health for a complete picture.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon" style="background: rgba(153,51,204,0.1);">&#128221;</div>
+                <h3>Reflection Journal</h3>
+                <p>Daily prompts, mood tracking, and AI-powered pattern analysis. Build self-awareness that drives real change.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon" style="background: rgba(255,170,51,0.1);">&#128197;</div>
+                <h3>Smart Calendar</h3>
+                <p>Day, week, and month views with Google Calendar sync. AI scheduling suggestions so nothing falls through the cracks.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOUR PILLARS -->
+    <section class="pillars-section" id="pillars">
+        <div class="section-header">
+            <div class="section-badge">The Four Pillars</div>
+            <h2>A system for your whole life</h2>
+            <p>Each pillar gets its own AI coach, goals, habits, and progress tracking.</p>
+        </div>
+
+        <div class="pillars-grid">
+            <div class="pillar-card fade-in" style="background: linear-gradient(160deg, rgba(0,212,170,0.06), rgba(0,139,112,0.02));">
+                <div class="pillar-emoji">&#10084;&#65039;</div>
+                <h3 style="color: var(--health);">Health</h3>
+                <p>Fitness routines, nutrition habits, sleep optimization, breathwork sessions, and vitality tracking.</p>
+                <div class="pillar-tags">
+                    <span class="pillar-tag">Workouts</span>
+                    <span class="pillar-tag">Breathwork</span>
+                    <span class="pillar-tag">Sleep</span>
+                    <span class="pillar-tag">HealthKit</span>
+                </div>
+            </div>
+            <div class="pillar-card fade-in" style="background: linear-gradient(160deg, rgba(255,51,170,0.06), rgba(153,51,204,0.02));">
+                <div class="pillar-emoji">&#129309;</div>
+                <h3 style="color: var(--relationships);">Relationships</h3>
+                <p>Deeper connections, better communication, quality time tracking, and relationship goal setting.</p>
+                <div class="pillar-tags">
+                    <span class="pillar-tag">Communication</span>
+                    <span class="pillar-tag">Bonds</span>
+                    <span class="pillar-tag">Collaboration</span>
+                </div>
+            </div>
+            <div class="pillar-card fade-in" style="background: linear-gradient(160deg, rgba(255,170,51,0.06), rgba(255,119,51,0.02));">
+                <div class="pillar-emoji">&#128176;</div>
+                <h3 style="color: var(--finance);">Finance</h3>
+                <p>Budget habits, saving strategies, wealth building goals, and smart money management.</p>
+                <div class="pillar-tags">
+                    <span class="pillar-tag">Budgeting</span>
+                    <span class="pillar-tag">Saving</span>
+                    <span class="pillar-tag">Wealth</span>
+                </div>
+            </div>
+            <div class="pillar-card fade-in" style="background: linear-gradient(160deg, rgba(51,102,255,0.06), rgba(119,51,255,0.02));">
+                <div class="pillar-emoji">&#128640;</div>
+                <h3 style="color: var(--career);">Career</h3>
+                <p>Deep work sessions, skill building, professional growth plans, and career milestone tracking.</p>
+                <div class="pillar-tags">
+                    <span class="pillar-tag">Deep Work</span>
+                    <span class="pillar-tag">Skills</span>
+                    <span class="pillar-tag">Growth</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPARK AI -->
+    <section class="spark-section" id="spark">
+        <div class="spark-inner">
+            <div class="spark-content fade-in">
+                <div class="section-badge">Spark AI</div>
+                <h2>Five coaches. One brilliant mind.</h2>
+                <p>Spark isn't a generic chatbot. It's five specialized coaches that understand your goals, habits, and progress across every pillar of your life.</p>
+
+                <div class="coach-list">
+                    <div class="coach-item">
+                        <div class="coach-avatar" style="background: linear-gradient(135deg, var(--accent), var(--accent-orange));">&#10024;</div>
+                        <div class="coach-info">
+                            <h4>General Spark</h4>
+                            <p>Your all-purpose life design assistant</p>
+                        </div>
+                    </div>
+                    <div class="coach-item">
+                        <div class="coach-avatar" style="background: linear-gradient(135deg, var(--health), var(--health-dark));">&#10084;&#65039;</div>
+                        <div class="coach-info">
+                            <h4>Health Coach</h4>
+                            <p>Fitness, nutrition & sleep optimization</p>
+                        </div>
+                    </div>
+                    <div class="coach-item">
+                        <div class="coach-avatar" style="background: linear-gradient(135deg, var(--relationships), var(--relationships-dark));">&#129309;</div>
+                        <div class="coach-info">
+                            <h4>Relationships Coach</h4>
+                            <p>Connection, communication & bonds</p>
+                        </div>
+                    </div>
+                    <div class="coach-item">
+                        <div class="coach-avatar" style="background: linear-gradient(135deg, var(--finance), var(--finance-dark));">&#128176;</div>
+                        <div class="coach-info">
+                            <h4>Finance Coach</h4>
+                            <p>Budgets, saving & wealth building</p>
+                        </div>
+                    </div>
+                    <div class="coach-item">
+                        <div class="coach-avatar" style="background: linear-gradient(135deg, var(--career), var(--career-dark));">&#128640;</div>
+                        <div class="coach-info">
+                            <h4>Career Coach</h4>
+                            <p>Deep work, skills & professional growth</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spark-visual fade-in">
+                <div class="chat-mockup">
+                    <div class="chat-header">
+                        <div class="chat-header-dot">&#10024;</div>
+                        <div>
+                            <h4>Spark</h4>
+                            <small>General Coach</small>
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="chat-msg user">I want to get promoted this year but I've been neglecting my health</div>
+                        <div class="chat-msg ai">That's a common trap! Let's design a plan that fuels your career <em>through</em> better health. I'll create a morning routine that gives you energy for deep work, plus a weekly review to keep both pillars growing. Want me to set that up?</div>
+                        <div class="chat-msg user">Yes, do it</div>
+                        <div class="chat-msg ai">Done! I've created 2 goals with daily habits. Check your Health and Career pillars. &#10024;</div>
+                    </div>
+                    <div class="chat-input">
+                        <span>Ask Spark anything...</span>
+                        <div class="chat-input-send">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <div class="section-badge">How It Works</div>
+            <h2>From vision to action in minutes</h2>
+            <p>SparQan's Life Design flow turns your ambitions into a structured plan.</p>
+        </div>
+
+        <div class="steps">
+            <div class="step fade-in">
+                <div class="step-num">1</div>
+                <h3>Define Your Vision</h3>
+                <p>Tell Spark about your ideal life. It asks the right questions to understand what matters across all four pillars.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-num">2</div>
+                <h3>AI Builds Your Plan</h3>
+                <p>Spark generates yearly goals, breaks them into quarters, months, and weeks — with daily habits attached.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-num">3</div>
+                <h3>Grow Your Constellation</h3>
+                <p>Complete habits, reflect daily, and watch your star map light up. Spark coaches you at every step.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONSTELLATION -->
+    <section class="constellation">
+        <div class="section-badge" style="position: relative;">Your Constellation</div>
+        <h2>Goals become stars.<br>Progress becomes light.</h2>
+        <p>Every goal you create becomes a star in your constellation. As you make progress, your stars shine brighter.</p>
+
+        <div class="constellation-visual fade-in">
+            <div class="star-map">
+                <!-- Stars -->
+                <div class="star" style="width:44px;height:44px;background:var(--health);left:15%;top:20%;animation-delay:-0.5s;color:var(--health);">&#10084;&#65039;</div>
+                <div class="star" style="width:38px;height:38px;background:var(--career);left:65%;top:15%;animation-delay:-1.5s;color:var(--career);">&#128640;</div>
+                <div class="star" style="width:50px;height:50px;background:var(--finance);left:45%;top:45%;animation-delay:-2s;color:var(--finance);">&#128176;</div>
+                <div class="star" style="width:36px;height:36px;background:var(--relationships);left:78%;top:55%;animation-delay:-0.8s;color:var(--relationships);">&#129309;</div>
+                <div class="star" style="width:28px;height:28px;background:rgba(255,255,255,0.15);left:30%;top:65%;animation-delay:-2.5s;"></div>
+                <div class="star" style="width:24px;height:24px;background:rgba(255,255,255,0.1);left:55%;top:75%;animation-delay:-1.2s;"></div>
+                <div class="star" style="width:32px;height:32px;background:var(--health);opacity:0.6;left:10%;top:55%;animation-delay:-1.8s;color:var(--health);"></div>
+                <div class="star" style="width:20px;height:20px;background:rgba(255,255,255,0.08);left:85%;top:30%;animation-delay:-0.3s;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta" id="download">
+        <h2>Your journey begins now.</h2>
+        <p>Stop juggling. Start designing. SparQan helps you build the life you actually want.</p>
+        <a href="#" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Download SparQan
+        </a>
+        <div class="final-tagline">goal &middot; habit &middot; clarity</div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+                <a href="mailto:support@sparqan.com">support@sparqan.com</a>
+            </div>
+            <p>&copy; 2026 SparQan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            nav.style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(0,0,0,0.3)' : 'none';
+        });
+    </script>
+</body>
+</html>
