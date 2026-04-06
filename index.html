@@ -171,7 +171,8 @@
         }
 
         .logo span {
-            font-family: 'DM Serif Display', serif;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
             font-size: 1.35rem;
         }
 
@@ -285,6 +286,9 @@
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
             position: relative;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero h1 .gradient-text {
@@ -1196,20 +1200,12 @@
             .pillars-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
             .spark-inner { grid-template-columns: 1fr; }
             .spark-visual { order: -1; }
-            .steps { grid-template-columns: 1fr; max-width: 400px; }
+            .steps { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
             .bento-grid { grid-template-columns: 1fr 1fr; }
             .bento-card.span-2 { grid-column: span 2; }
             .hero { padding: 8rem 1.5rem 3rem; }
             .float-badge { display: none; }
             .comparison-table { font-size: 0.8rem; }
-        }
-
-        @media (max-width: 600px) {
-            .bento-grid { grid-template-columns: 1fr; }
-            .bento-card.span-2 { grid-column: span 1; }
-            .pillars-strip { gap: 0.5rem; }
-            .pillar-chip { padding: 0.5rem 0.9rem; }
-            .pillar-chip span { font-size: 0.78rem; }
         }
 
         @media (max-width: 768px) {
@@ -1227,6 +1223,48 @@
                 border-bottom: 1px solid var(--border);
                 box-shadow: 0 16px 40px rgba(0,0,0,0.4);
             }
+
+            .hero { padding: 7rem 1.25rem 2.5rem; }
+            .hero h1 { font-size: clamp(2rem, 8vw, 3rem); max-width: 100%; }
+            .hero > p { font-size: 1rem; margin-bottom: 2rem; }
+            .hero-ctas { flex-direction: column; align-items: center; }
+            .hero-ctas .btn-primary,
+            .hero-ctas .btn-secondary { width: 100%; max-width: 320px; justify-content: center; }
+            .hero-icon { width: 72px; height: 72px; }
+
+            .pillars-strip { gap: 0.5rem; justify-content: center; }
+            .pillar-chip { padding: 0.5rem 0.9rem; }
+            .pillar-chip span { font-size: 0.78rem; }
+
+            .features, .bento, .pillars-section, .spark-section, .how-it-works, .testimonials, .comparison { padding: 4rem 1.25rem; }
+            .tagline-section { padding: 4rem 1.25rem; }
+            .final-cta { padding: 5rem 1.25rem; }
+            .section-header { margin-bottom: 3rem; }
+
+            .phone-frame { width: 250px; height: 510px; }
+        }
+
+        @media (max-width: 600px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-card.span-2 { grid-column: span 1; }
+
+            .hero { padding: 6.5rem 1rem 2rem; }
+            .hero h1 { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+            .hero > p { font-size: 0.92rem; }
+            .hero-badge { font-size: 0.75rem; padding: 0.35rem 1rem; }
+
+            .pillars-strip { gap: 0.4rem; }
+            .pillar-chip { padding: 0.4rem 0.75rem; }
+            .pillar-chip span { font-size: 0.72rem; }
+
+            .features, .bento, .pillars-section, .spark-section, .how-it-works, .testimonials, .comparison { padding: 3rem 1rem; }
+            .tagline-section { padding: 3rem 1rem; }
+            .final-cta { padding: 4rem 1rem; }
+            .section-header { margin-bottom: 2.5rem; }
+            .section-header h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+
+            .comparison-row { grid-template-columns: 1.5fr 1fr 1fr; }
+            .comparison-cell { padding: 0.7rem 0.75rem; font-size: 0.75rem; }
         }
 
         /* ANIMATIONS */
