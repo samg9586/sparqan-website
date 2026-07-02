@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SparQan — Design Your Life Across Four Pillars</title>
+    <title>SparQan — Design your life across four pillars</title>
     <meta name="description" content="SparQan is the only goal app that optimizes your health, relationships, finances, and career — together. Guided by specialized AI coaches.">
     <meta name="keywords" content="goal setting, life design, AI coach, habit tracker, health, relationships, finance, career, personal growth, SparQan">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="SparQan — Design Your Life">
+    <meta property="og:title" content="SparQan — Design your life across four pillars">
     <meta property="og:description" content="The only goal app that optimizes all four pillars of your life. AI-powered coaching for health, relationships, finance, and career.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sparqan.com">
@@ -16,7 +16,7 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SparQan — Design Your Life">
+    <meta name="twitter:title" content="SparQan — Design your life across four pillars">
     <meta name="twitter:description" content="AI-powered life design across four pillars.">
 
     <!-- Favicon -->
@@ -26,1276 +26,683 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --accent: #FF3366;
-            --accent-orange: #FF8033;
-            --accent-cyan: #00D4FF;
-            --bg: #0A0214;
-            --bg-subtle: #0F0820;
-            --bg-card: #13102A;
-            --bg-card-hover: #1C1540;
-            --text: #FFFFFF;
-            --text-secondary: rgba(255,255,255,0.5);
-            --text-tertiary: rgba(255,255,255,0.3);
-            --border: rgba(255,255,255,0.07);
-            --border-hover: rgba(255,255,255,0.14);
-            --health: #00D4AA;
-            --health-glow: rgba(0,212,170,0.15);
-            --relationships: #FF33AA;
-            --relationships-glow: rgba(255,51,170,0.15);
-            --finance: #FFAA33;
-            --finance-glow: rgba(255,170,51,0.15);
-            --career: #3366FF;
-            --career-glow: rgba(51,102,255,0.15);
+            --sky: #05070F;
+            --sky-high: #090D1A;
+            --card-solid: #0D1322;
+            --ink-line: rgba(215, 226, 255, 0.09);
+            --ink-line-bright: rgba(215, 226, 255, 0.2);
+            --starlight: #E8EDFB;
+            --starlight-dim: rgba(232, 237, 251, 0.55);
+            --starlight-faint: rgba(232, 237, 251, 0.32);
+            --gold: #D8B36A;
+            --health: #5FD4A8;
+            --relationships: #E88BB1;
+            --finance: #E3B65E;
+            --career: #6FA8E8;
+            --serif: 'Fraunces', Georgia, serif;
+            --sans: 'Albert Sans', -apple-system, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
+            font-family: var(--sans);
+            background: var(--sky);
+            color: var(--starlight);
+            line-height: 1.65;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3 { font-family: 'DM Serif Display', serif; font-weight: 400; }
+        h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 
-        /* AMBIENT BACKGROUND */
-        .ambient {
+        ::selection { background: rgba(216, 179, 106, 0.3); }
+
+        /* ===== NIGHT SKY ===== */
+        .sky {
             position: fixed;
             inset: 0;
-            z-index: -1;
-            pointer-events: none;
+            z-index: -2;
+            background:
+                radial-gradient(ellipse 90% 60% at 50% -10%, #101B36 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 85% 100%, #0B1226 0%, transparent 55%),
+                var(--sky);
         }
 
-        .ambient-orb {
+        .stars { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+        .star {
             position: absolute;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.4;
-            animation: drift 20s ease-in-out infinite;
-        }
-
-        .ambient-orb:nth-child(1) {
-            width: 600px; height: 600px;
-            background: var(--accent);
-            top: -15%; left: -10%;
-            opacity: 0.06;
-            animation-delay: 0s;
-        }
-
-        .ambient-orb:nth-child(2) {
-            width: 500px; height: 500px;
-            background: var(--career);
-            bottom: -10%; right: -10%;
-            opacity: 0.04;
-            animation-delay: -7s;
-        }
-
-        .ambient-orb:nth-child(3) {
-            width: 400px; height: 400px;
-            background: var(--accent-orange);
-            top: 40%; left: 50%;
-            opacity: 0.03;
-            animation-delay: -14s;
-        }
-
-        @keyframes drift {
-            0%, 100% { transform: translate(0, 0); }
-            33% { transform: translate(30px, -20px); }
-            66% { transform: translate(-20px, 15px); }
-        }
-
-        /* PARTICLES */
-        .particles {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 4s ease-in-out infinite;
+            background: var(--starlight);
+            animation: twinkle var(--dur, 5s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
         }
 
         @keyframes twinkle {
             0%, 100% { opacity: 0.1; }
-            50% { opacity: 0.6; }
+            50% { opacity: var(--max, 0.7); }
         }
 
-        /* NAV */
+        /* Celestial chart graticule */
+        .graticule {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.5;
+            background-image:
+                linear-gradient(var(--ink-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--ink-line) 1px, transparent 1px);
+            background-size: 120px 120px;
+            mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, black 0%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, black 0%, transparent 75%);
+        }
+
+        /* ===== NAV ===== */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
-            padding: 0.75rem 2rem;
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            background: rgba(10, 2, 20, 0.75);
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            background: rgba(5, 7, 15, 0.6);
+            border-bottom: 1px solid var(--ink-line);
         }
 
         .nav-inner {
-            max-width: 1200px;
+            max-width: 1140px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.65rem;
-            text-decoration: none;
-            color: var(--text);
-        }
+        .logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: var(--starlight); }
+        .logo img { width: 34px; height: 34px; clip-path: inset(1px round 24%); }
+        .logo span { font-family: var(--serif); font-weight: 500; font-size: 1.3rem; letter-spacing: 0.01em; }
 
-        .logo img {
-            width: 38px;
-            height: 38px;
-            clip-path: inset(1px round 22%);
-        }
-
-        .logo span {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 1.35rem;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            list-style: none;
-        }
+        .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 0.88rem;
+            color: var(--starlight-dim);
+            font-size: 0.85rem;
             font-weight: 500;
-            transition: color 0.2s;
+            letter-spacing: 0.04em;
+            transition: color 0.25s;
         }
 
-        .nav-links a:hover { color: white; }
+        .nav-links a:hover { color: var(--starlight); }
 
         .nav-cta {
-            background: linear-gradient(135deg, var(--accent), var(--accent-orange)) !important;
-            color: white !important;
-            padding: 0.5rem 1.4rem;
+            color: var(--gold) !important;
+            border: 1px solid rgba(216, 179, 106, 0.35);
+            padding: 0.45rem 1.3rem;
             border-radius: 100px;
-            font-weight: 600 !important;
-            transition: transform 0.2s, box-shadow 0.2s !important;
+            transition: all 0.25s !important;
         }
 
-        .nav-cta:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 24px rgba(255, 51, 102, 0.4);
-        }
+        .nav-cta:hover { background: rgba(216, 179, 106, 0.1); border-color: rgba(216, 179, 106, 0.6); }
 
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
+        .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+        .mobile-menu-btn span { display: block; width: 22px; height: 1.5px; background: var(--starlight); margin: 5.5px 0; }
 
-        .mobile-menu-btn span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background: white;
-            margin: 5px 0;
-            border-radius: 2px;
-        }
-
-        /* HERO */
+        /* ===== HERO ===== */
         .hero {
-            padding: 10rem 2rem 4rem;
-            text-align: center;
-            position: relative;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: center;
+            gap: 3rem;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 8.5rem 2rem 4rem;
         }
 
-        .hero-glow {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 500px;
-            background: radial-gradient(ellipse, rgba(255,51,102,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-icon {
-            display: block;
-            width: 88px;
-            height: 88px;
-            border-radius: 22%;
-            margin: 0 auto 2rem;
-            box-shadow: 0 12px 40px rgba(255, 51, 102, 0.25), 0 0 0 1px rgba(255,255,255,0.06);
-            position: relative;
-        }
-
-        .hero-badge {
+        .hero-kicker {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 51, 102, 0.08);
-            border: 1px solid rgba(255, 51, 102, 0.18);
-            padding: 0.4rem 1.2rem;
-            border-radius: 100px;
-            font-size: 0.82rem;
-            color: var(--accent);
+            gap: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            margin-bottom: 2rem;
-            position: relative;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.8rem;
         }
 
-        .hero-badge::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
+        .hero-kicker::before { content: ''; width: 32px; height: 1px; background: var(--gold); opacity: 0.6; }
 
         .hero h1 {
-            font-size: clamp(3.2rem, 7vw, 5.5rem);
-            line-height: 1.04;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-            position: relative;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
+            font-size: clamp(2.8rem, 5.2vw, 4.4rem);
+            font-weight: 300;
+            line-height: 1.08;
+            letter-spacing: -0.015em;
+            margin-bottom: 1.6rem;
         }
 
-        .hero h1 .gradient-text {
-            background: linear-gradient(135deg, var(--accent), var(--accent-orange), var(--accent-cyan));
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 6s ease infinite;
-        }
+        .hero h1 em { font-style: italic; font-weight: 400; color: var(--gold); }
 
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .hero > p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 560px;
-            margin: 0 auto 2.5rem;
+        .hero-lede {
+            font-size: 1.1rem;
+            color: var(--starlight-dim);
+            max-width: 460px;
+            margin-bottom: 2.4rem;
             line-height: 1.75;
-            position: relative;
         }
 
-        .hero-ctas {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-        }
+        .hero-ctas { display: flex; gap: 1.6rem; flex-wrap: wrap; align-items: center; }
 
         .btn-primary {
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
-            color: white;
-            padding: 0.95rem 2.4rem;
-            border-radius: 100px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.25s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 51, 102, 0.25);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 36px rgba(255, 51, 102, 0.4);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255,255,255,0.04);
-            color: white;
-            padding: 0.95rem 2.4rem;
+            background: var(--starlight);
+            color: var(--sky);
+            padding: 0.9rem 2.2rem;
             border-radius: 100px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
-            border: 1px solid var(--border);
-            transition: all 0.25s;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.08);
-            border-color: var(--border-hover);
-            transform: translateY(-2px);
-        }
-
-        /* PILLARS STRIP */
-        .pillars-strip {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 3.5rem;
-            flex-wrap: wrap;
-            position: relative;
-        }
-
-        .pillar-chip {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.65rem 1.3rem;
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            background: var(--bg-card);
+            font-size: 0.95rem;
             transition: all 0.3s;
-            cursor: default;
         }
 
-        .pillar-chip:hover {
-            transform: translateY(-2px);
-            border-color: var(--border-hover);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(232, 237, 251, 0.18); }
 
-        .pillar-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            box-shadow: 0 0 8px currentColor;
-        }
-
-        .pillar-chip span { font-size: 0.88rem; font-weight: 600; }
-
-        /* HERO PHONE */
-        .hero-phone {
-            margin-top: 4rem;
-            display: flex;
-            justify-content: center;
-            position: relative;
-        }
-
-        .hero-phone::before {
-            content: '';
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 500px;
-            height: 200px;
-            background: radial-gradient(ellipse, rgba(255,51,102,0.08), transparent 70%);
-            filter: blur(40px);
-        }
-
-        .phone-frame {
-            width: 290px;
-            height: 590px;
-            background: linear-gradient(160deg, var(--accent), #9933FF, var(--career));
-            border-radius: 44px;
-            padding: 3px;
-            box-shadow: 0 50px 120px rgba(255, 51, 102, 0.12), 0 0 0 1px rgba(255,255,255,0.06);
-            position: relative;
-        }
-
-        .phone-inner {
-            width: 100%;
-            height: 100%;
-            background: var(--bg);
-            border-radius: 42px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            padding: 2.5rem 1.4rem 1.4rem;
-        }
-
-        .phone-greeting {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.6rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .phone-sub {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.2rem;
-        }
-
-        .phone-pillars {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .phone-pillar {
-            border-radius: 14px;
-            padding: 0.7rem;
-            border: 1px solid var(--border);
-        }
-
-        .phone-pillar-emoji { font-size: 1.1rem; margin-bottom: 0.2rem; }
-        .phone-pillar-name { font-size: 0.62rem; font-weight: 700; margin-bottom: 0.2rem; }
-
-        .phone-pillar-bar {
-            height: 3px;
-            border-radius: 2px;
-            background: rgba(255,255,255,0.1);
-            overflow: hidden;
-        }
-
-        .phone-pillar-fill { height: 100%; border-radius: 2px; }
-
-        .phone-spark {
-            background: var(--bg-card);
-            border-radius: 14px;
-            padding: 0.7rem;
-            border: 1px solid var(--border);
-            margin-top: auto;
-        }
-
-        .phone-spark-label {
-            font-size: 0.58rem;
-            color: var(--accent);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.25rem;
-        }
-
-        .phone-spark-text {
-            font-size: 0.68rem;
-            color: var(--text-secondary);
-            line-height: 1.45;
-        }
-
-        /* FLOATING BADGES */
-        .float-badge {
-            position: absolute;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 0.8rem 1.1rem;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-            animation: floatBadge 6s ease-in-out infinite;
-            z-index: 2;
-        }
-
-        @keyframes floatBadge {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .float-badge-left { left: calc(50% - 280px); top: 30%; animation-delay: -1s; }
-        .float-badge-right { right: calc(50% - 280px); top: 20%; animation-delay: -3s; }
-        .float-badge-bottom { left: calc(50% - 220px); bottom: 15%; animation-delay: -5s; }
-
-        .fb-row { display: flex; align-items: center; gap: 0.5rem; }
-        .fb-dot { width: 8px; height: 8px; border-radius: 50%; }
-        .fb-label { font-size: 0.7rem; color: var(--text-secondary); }
-        .fb-value { font-size: 0.9rem; font-weight: 800; margin-top: 0.2rem; }
-
-        /* LOGOS STRIP */
-        .trust-strip {
-            padding: 4rem 2rem;
-            text-align: center;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .trust-strip p {
-            font-size: 0.8rem;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .trust-items {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-tertiary);
-            font-size: 0.85rem;
+        .btn-ghost {
+            color: var(--starlight-dim);
+            text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--ink-line-bright);
+            padding-bottom: 2px;
+            transition: all 0.25s;
         }
 
-        .trust-item svg { width: 20px; height: 20px; opacity: 0.5; }
+        .btn-ghost:hover { color: var(--starlight); border-color: var(--starlight-faint); }
 
-        /* TAGLINE */
-        .tagline-section {
-            padding: 7rem 2rem;
-            text-align: center;
-            position: relative;
+        /* Constellation chart */
+        .hero-chart { position: relative; width: 100%; max-width: 520px; margin: 0 auto; }
+        .hero-chart svg { width: 100%; height: auto; overflow: visible; }
+
+        .const-line {
+            stroke: var(--ink-line-bright);
+            stroke-width: 1;
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: drawLine 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        .tagline-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(255,51,102,0.03), transparent 50%);
+        .const-line.l2 { animation-delay: 0.3s; }
+        .const-line.l3 { animation-delay: 0.6s; }
+        .const-line.l4 { animation-delay: 0.9s; }
+
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+
+        .const-star { animation: starPulse 4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+        .const-star.s2 { animation-delay: -1s; }
+        .const-star.s3 { animation-delay: -2s; }
+        .const-star.s4 { animation-delay: -3s; }
+
+        @keyframes starPulse {
+            0%, 100% { opacity: 0.85; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.18); }
         }
 
-        .tagline-section blockquote {
-            font-family: 'DM Serif Display', serif;
-            font-size: clamp(1.6rem, 3.5vw, 2.6rem);
-            max-width: 750px;
-            margin: 0 auto;
-            line-height: 1.45;
-            color: rgba(255,255,255,0.8);
-            position: relative;
-        }
-
-        .tagline-section blockquote em {
-            font-style: italic;
-            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* SECTION STYLING */
-        .section-header {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 4.5rem;
-        }
-
-        .section-badge {
-            display: inline-block;
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: var(--accent);
+        .const-label {
+            font-family: var(--sans);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            letter-spacing: 0.14em;
-            margin-bottom: 0.75rem;
-            font-family: 'Inter', sans-serif;
+            fill: var(--starlight-dim);
         }
 
-        .section-header h2 {
-            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
-            margin-bottom: 1rem;
-            line-height: 1.1;
+        .const-ring {
+            fill: none;
+            stroke-width: 1;
+            opacity: 0.35;
+            animation: ringBreathe 5s ease-in-out infinite;
+            transform-origin: center;
+            transform-box: fill-box;
         }
 
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            line-height: 1.65;
+        @keyframes ringBreathe {
+            0%, 100% { transform: scale(1); opacity: 0.35; }
+            50% { transform: scale(1.12); opacity: 0.15; }
         }
 
-        /* FEATURES */
-        .features {
-            padding: 7rem 2rem;
+        .chart-caption {
+            text-align: center;
+            margin-top: 1.4rem;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--starlight-faint);
         }
 
-        .features-grid {
-            max-width: 1100px;
+        /* ===== MANIFESTO ===== */
+        .manifesto {
+            padding: 9rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--ink-line);
+        }
+
+        .manifesto blockquote {
+            font-family: var(--serif);
+            font-weight: 300;
+            font-size: clamp(1.7rem, 3.6vw, 2.7rem);
+            line-height: 1.45;
+            max-width: 780px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
+            color: var(--starlight);
         }
 
-        .feature-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid var(--border);
-            transition: all 0.35s;
-            position: relative;
-            overflow: hidden;
+        .manifesto blockquote em { font-style: italic; color: var(--gold); }
+
+        .manifesto-attribution {
+            margin-top: 2rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--starlight-faint);
         }
 
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-            opacity: 0;
-            transition: opacity 0.35s;
-        }
+        /* ===== SECTION SCAFFOLD ===== */
+        .section-inner { max-width: 1140px; margin: 0 auto; padding: 7.5rem 2rem; }
 
-        .feature-card:hover {
-            background: var(--bg-card-hover);
-            transform: translateY(-5px);
-            border-color: var(--border-hover);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
+        .section-head { max-width: 560px; margin-bottom: 4.5rem; }
 
-        .feature-card:hover::before { opacity: 1; }
-
-        .feature-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.25rem;
-            font-size: 1.4rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-card p {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            line-height: 1.65;
-        }
-
-        /* BENTO GRID */
-        .bento {
-            padding: 7rem 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .bento-grid {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto auto;
-            gap: 1.25rem;
-        }
-
-        .bento-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid var(--border);
-            transition: all 0.35s;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .bento-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--border-hover);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.3);
-        }
-
-        .bento-card.span-2 { grid-column: span 2; }
-
-        .bento-card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .bento-card p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .bento-visual {
-            margin-top: 1.25rem;
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 1rem;
-            border: 1px solid var(--border);
-        }
-
-        .bento-bars {
-            display: flex;
-            gap: 0.4rem;
-            align-items: flex-end;
-            height: 60px;
-        }
-
-        .bento-bar {
-            flex: 1;
-            border-radius: 4px 4px 0 0;
-            transition: height 0.5s;
-        }
-
-        .bento-streak {
-            display: flex;
-            gap: 0.3rem;
-            flex-wrap: wrap;
-        }
-
-        .streak-dot {
-            width: 18px;
-            height: 18px;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-        }
-
-        .bento-timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .timeline-item {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 0.75rem;
-        }
-
-        .timeline-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .timeline-label { color: var(--text-secondary); }
-        .timeline-time { color: var(--text-tertiary); margin-left: auto; font-size: 0.65rem; }
-
-        /* FOUR PILLARS */
-        .pillars-section {
-            padding: 7rem 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .pillars-grid {
-            max-width: 1050px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
-        }
-
-        .pillar-card {
-            border-radius: 24px;
-            padding: 2.5rem 2rem;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transition: all 0.35s;
-        }
-
-        .pillar-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
-
-        .pillar-emoji { font-size: 2.2rem; margin-bottom: 1rem; }
-
-        .pillar-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-
-        .pillar-card p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.65;
-            position: relative;
-        }
-
-        .pillar-tags {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-            margin-top: 1.25rem;
-        }
-
-        .pillar-tag {
+        .section-kicker {
             font-size: 0.72rem;
-            padding: 0.3rem 0.7rem;
-            border-radius: 100px;
-            background: rgba(255,255,255,0.05);
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-        }
-
-        /* SPARK AI */
-        .spark-section {
-            padding: 7rem 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .spark-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .spark-content h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1.25rem;
-            line-height: 1.1;
-        }
-
-        .spark-content > p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            margin-bottom: 2rem;
-            line-height: 1.7;
-        }
-
-        .coach-list { display: flex; flex-direction: column; gap: 0.6rem; }
-
-        .coach-item {
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-            padding: 0.85rem 1.1rem;
-            background: var(--bg-card);
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-        }
-
-        .coach-item:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--border-hover);
-            transform: translateX(4px);
-        }
-
-        .coach-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-
-        .coach-info h4 { font-family: 'Inter'; font-size: 0.88rem; font-weight: 700; }
-        .coach-info p { font-size: 0.78rem; color: var(--text-secondary); }
-
-        /* CHAT MOCKUP */
-        .chat-mockup {
-            background: var(--bg-card);
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-        }
-
-        .chat-header {
+            font-weight: 600;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.7rem;
-            margin-bottom: 1.25rem;
-            padding-bottom: 0.85rem;
-            border-bottom: 1px solid var(--border);
         }
 
-        .chat-header-dot {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
+        .section-kicker::before { content: ''; width: 26px; height: 1px; background: var(--gold); opacity: 0.6; }
+
+        .section-head h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .section-head h2 em { font-style: italic; color: var(--gold); font-weight: 400; }
+        .section-head p { color: var(--starlight-dim); font-size: 1.02rem; }
+
+        /* ===== PILLARS ===== */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--ink-line);
+            border: 1px solid var(--ink-line);
+        }
+
+        .pillar-card {
+            background: var(--sky);
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s;
+        }
+
+        .pillar-card:hover { background: var(--sky-high); }
+
+        .pillar-card::after {
+            content: '';
+            position: absolute;
+            top: 2.6rem; right: 2.4rem;
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--pc);
+            box-shadow: 0 0 12px var(--pc), 0 0 30px var(--pc);
+            animation: starPulse 4s ease-in-out infinite;
+        }
+
+        .pillar-num {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--starlight-faint);
+            margin-bottom: 1.6rem;
+            display: block;
+        }
+
+        .pillar-card h3 { font-size: 1.7rem; font-weight: 400; margin-bottom: 0.7rem; color: var(--pc); }
+
+        .pillar-card > p {
+            font-size: 0.93rem;
+            color: var(--starlight-dim);
+            line-height: 1.7;
+            margin-bottom: 1.6rem;
+        }
+
+        .pillar-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.2rem;
+            font-size: 0.78rem;
+            color: var(--starlight-faint);
+            letter-spacing: 0.03em;
+        }
+
+        .pillar-meta span::before { content: '·'; margin-right: 1.2rem; color: var(--pc); }
+        .pillar-meta span:first-child::before { content: ''; margin: 0; }
+
+        /* ===== ATLAS (features) ===== */
+        .atlas-list { border-top: 1px solid var(--ink-line); }
+
+        .atlas-row {
+            display: grid;
+            grid-template-columns: 90px 1fr 1.4fr;
+            gap: 2.5rem;
+            padding: 2.4rem 0;
+            border-bottom: 1px solid var(--ink-line);
+            align-items: baseline;
+            transition: padding-left 0.35s;
+        }
+
+        .atlas-row:hover { padding-left: 1rem; }
+
+        .atlas-index { font-family: var(--serif); font-style: italic; font-size: 0.95rem; color: var(--gold); }
+        .atlas-row h3 { font-size: 1.35rem; font-weight: 400; }
+        .atlas-row p { font-size: 0.93rem; color: var(--starlight-dim); line-height: 1.7; }
+
+        /* ===== SPARK / COACHES ===== */
+        .spark-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 4.5rem;
+            align-items: center;
+        }
+
+        .coach-orbit {
+            position: relative;
+            aspect-ratio: 1;
+            max-width: 400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .orbit-ring { position: absolute; inset: 0; border: 1px solid var(--ink-line-bright); border-radius: 50%; }
+        .orbit-ring.inner { inset: 22%; opacity: 0.6; }
+
+        .orbit-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 92px; height: 92px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #1A2440, var(--card-solid));
+            border: 1px solid var(--ink-line-bright);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--gold);
+            box-shadow: 0 0 60px rgba(216, 179, 106, 0.12);
+            z-index: 2;
+        }
+
+        .orbit-rotator { position: absolute; inset: 0; animation: orbit 60s linear infinite; }
+
+        @keyframes orbit { to { transform: rotate(360deg); } }
+
+        .orbit-node {
+            position: absolute;
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: var(--card-solid);
+            border: 1px solid var(--ink-line-bright);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            animation: orbit 60s linear infinite reverse;
+        }
+
+        .orbit-node:nth-child(1) { top: -26px; left: calc(50% - 26px); }
+        .orbit-node:nth-child(2) { top: calc(50% - 26px); right: -26px; }
+        .orbit-node:nth-child(3) { bottom: -26px; left: calc(50% - 26px); }
+        .orbit-node:nth-child(4) { top: calc(50% - 26px); left: -26px; }
+        .orbit-node:nth-child(5) { top: 9%; right: 9%; }
+
+        .coach-list { display: flex; flex-direction: column; }
+
+        .coach-row {
+            display: flex;
+            align-items: baseline;
+            gap: 1.4rem;
+            padding: 1.3rem 0;
+            border-bottom: 1px solid var(--ink-line);
+        }
+
+        .coach-row:first-child { border-top: 1px solid var(--ink-line); }
+
+        .coach-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; position: relative; top: -2px; }
+        .coach-row h4 { font-family: var(--sans); font-size: 0.92rem; font-weight: 600; min-width: 160px; }
+        .coach-row p { font-size: 0.85rem; color: var(--starlight-dim); }
+
+        /* ===== HOW IT WORKS ===== */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3.5rem;
+            position: relative;
+        }
+
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 8%; right: 8%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--ink-line-bright), transparent);
+        }
+
+        .step-item { position: relative; padding-top: 2.4rem; }
+
+        .step-item::before {
+            content: '';
+            position: absolute;
+            top: 4px; left: 0;
+            width: 13px; height: 13px;
+            border-radius: 50%;
+            border: 1px solid var(--gold);
+            background: var(--sky);
+        }
+
+        .step-item::after {
+            content: '';
+            position: absolute;
+            top: 8px; left: 4px;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        .step-item h3 { font-size: 1.3rem; font-weight: 400; margin-bottom: 0.6rem; }
+        .step-item h3 em { font-style: italic; color: var(--gold); }
+        .step-item p { font-size: 0.9rem; color: var(--starlight-dim); line-height: 1.7; }
+
+        /* ===== TOGETHER (partner mode) ===== */
+        .together {
+            border-top: 1px solid var(--ink-line);
+        }
+
+        .together-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 7rem 2rem;
+            text-align: center;
+        }
+
+        .together-stars {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 2.2rem;
+        }
+
+        .together-star {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            animation: starPulse 4s ease-in-out infinite;
+        }
+
+        .together-line { width: 90px; height: 1px; background: var(--ink-line-bright); }
+
+        .together h2 { font-size: clamp(1.9rem, 3.8vw, 2.8rem); font-weight: 300; margin-bottom: 1.1rem; }
+        .together h2 em { font-style: italic; color: var(--gold); }
+
+        .together p { color: var(--starlight-dim); max-width: 540px; margin: 0 auto; }
+
+        /* ===== FINAL CTA ===== */
+        .final {
+            padding: 10rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--ink-line);
+            position: relative;
             overflow: hidden;
         }
 
-        .chat-header-dot img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .final::before {
+            content: '';
+            position: absolute;
+            top: -40%; left: 50%;
+            transform: translateX(-50%);
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(216, 179, 106, 0.07), transparent 65%);
+            pointer-events: none;
         }
 
-        .chat-header h4 { font-family: 'Inter'; font-size: 0.9rem; font-weight: 700; }
-        .chat-header small { font-size: 0.7rem; color: var(--text-secondary); }
-
-        .chat-messages { display: flex; flex-direction: column; gap: 0.6rem; }
-
-        .chat-msg {
-            padding: 0.75rem 1rem;
-            border-radius: 16px;
-            font-size: 0.8rem;
-            line-height: 1.55;
-            max-width: 88%;
+        .final-icon {
+            width: 76px; height: 76px;
+            border-radius: 24%;
+            margin: 0 auto 2.2rem;
+            display: block;
+            box-shadow: 0 10px 50px rgba(216, 179, 106, 0.2), 0 0 0 1px var(--ink-line-bright);
         }
 
-        .chat-msg.user {
-            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
+        .final h2 {
+            font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+            font-weight: 300;
+            margin-bottom: 1.2rem;
+            position: relative;
         }
 
-        .chat-msg.ai {
-            background: rgba(255,255,255,0.05);
-            color: rgba(255,255,255,0.8);
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-            border: 1px solid var(--border);
+        .final h2 em { font-style: italic; color: var(--gold); }
+
+        .final > p { color: var(--starlight-dim); max-width: 440px; margin: 0 auto 2.6rem; position: relative; }
+
+        .final-note {
+            margin-top: 2.6rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--starlight-faint);
+            position: relative;
         }
 
-        .chat-input {
-            margin-top: 1rem;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 0.65rem 1rem;
+        /* ===== FOOTER ===== */
+        footer { padding: 3rem 2rem; border-top: 1px solid var(--ink-line); }
+
+        .footer-inner {
+            max-width: 1140px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-        }
-
-        .chat-input span { font-size: 0.78rem; color: var(--text-tertiary); }
-
-        .chat-input-send {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .chat-input-send svg { width: 14px; height: 14px; }
-
-        /* HOW IT WORKS */
-        .how-it-works {
-            padding: 7rem 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .steps {
-            max-width: 950px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .step { text-align: center; }
-
-        .step-num {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.4rem;
-            margin: 0 auto 1.25rem;
-            box-shadow: 0 8px 24px rgba(255,51,102,0.2);
-        }
-
-        .step h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
-        .step p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
-
-        /* TESTIMONIALS */
-        .testimonials {
-            padding: 7rem 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .testimonials-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
-        }
-
-        .testimonial-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 1.75rem;
-            border: 1px solid var(--border);
-        }
-
-        .testimonial-stars {
-            color: var(--finance);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            margin-bottom: 0.75rem;
-        }
-
-        .testimonial-card blockquote {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.75);
-            line-height: 1.65;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        .testimonial-role {
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-        }
-
-        /* COMPARISON */
-        .comparison {
-            padding: 7rem 2rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .comparison-table {
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .comparison-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .comparison-row:last-child { border-bottom: none; }
-
-        .comparison-row.header {
-            background: var(--bg-card);
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-
-        .comparison-cell {
-            padding: 0.9rem 1.25rem;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-        }
-
-        .comparison-cell:first-child { font-weight: 600; color: var(--text); }
-
-        .check { color: var(--health); font-size: 1.1rem; }
-        .cross { color: var(--text-tertiary); font-size: 1.1rem; }
-
-        .comparison-row.header .comparison-cell:nth-child(2) {
-            background: linear-gradient(135deg, var(--accent), var(--accent-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* FINAL CTA */
-        .final-cta {
-            padding: 8rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            border-top: 1px solid var(--border);
-        }
-
-        .final-cta::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 50% 80%, rgba(255,51,102,0.08), transparent 50%),
-                        radial-gradient(circle at 30% 20%, rgba(51,102,255,0.04), transparent 50%);
-        }
-
-        .final-cta .hero-icon { margin-bottom: 2rem; }
-
-        .final-cta h2 {
-            font-size: clamp(2.4rem, 5vw, 4rem);
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .final-cta p {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            max-width: 480px;
-            margin: 0 auto 2.5rem;
-            position: relative;
-        }
-
-        .final-cta .btn-primary { position: relative; font-size: 1.05rem; padding: 1rem 2.8rem; }
-
-        .final-tagline {
-            margin-top: 2.5rem;
-            font-size: 0.85rem;
-            color: var(--text-tertiary);
-            letter-spacing: 0.3em;
-            text-transform: lowercase;
-            font-weight: 500;
-            position: relative;
-        }
-
-        /* FOOTER */
-        footer {
-            padding: 3rem 2rem;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--text-secondary);
-        }
-
-        .footer-inner { max-width: 1200px; margin: 0 auto; }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
             flex-wrap: wrap;
+            gap: 1.5rem;
         }
+
+        .footer-brand { font-family: var(--serif); font-style: italic; font-size: 0.95rem; color: var(--starlight-faint); }
+
+        .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
 
         .footer-links a {
-            color: var(--text-secondary);
+            color: var(--starlight-dim);
             text-decoration: none;
             font-size: 0.85rem;
             transition: color 0.2s;
         }
 
-        .footer-links a:hover { color: white; }
-        footer p { font-size: 0.78rem; color: var(--text-tertiary); }
+        .footer-links a:hover { color: var(--starlight); }
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .features-grid, .testimonials-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
-            .pillars-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
-            .spark-inner { grid-template-columns: 1fr; }
-            .spark-visual { order: -1; }
-            .steps { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
-            .bento-grid { grid-template-columns: 1fr 1fr; }
-            .bento-card.span-2 { grid-column: span 2; }
-            .hero { padding: 8rem 1.5rem 3rem; }
-            .float-badge { display: none; }
-            .comparison-table { font-size: 0.8rem; }
+        /* ===== REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .reveal-d1 { transition-delay: 0.12s; }
+        .reveal-d2 { transition-delay: 0.24s; }
+        .reveal-d3 { transition-delay: 0.36s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 960px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 7.5rem; gap: 4rem; }
+            .hero-kicker { justify-content: center; }
+            .hero-lede { margin-left: auto; margin-right: auto; }
+            .hero-ctas { justify-content: center; }
+            .pillars-grid { grid-template-columns: 1fr; }
+            .atlas-row { grid-template-columns: 60px 1fr; }
+            .atlas-row p { grid-column: 2; }
+            .spark-grid { grid-template-columns: 1fr; gap: 4.5rem; }
+            .steps-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .steps-grid::before { display: none; }
         }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
             .nav-links.active {
                 display: flex;
                 flex-direction: column;
                 position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--bg);
+                top: 100%; left: 0; right: 0;
+                background: var(--sky);
                 padding: 1.5rem 2rem;
-                border-bottom: 1px solid var(--border);
-                box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+                border-bottom: 1px solid var(--ink-line);
+                gap: 1.4rem;
             }
-
-            .hero { padding: 7rem 1.25rem 2.5rem; }
-            .hero h1 { font-size: clamp(2rem, 8vw, 3rem); max-width: 100%; }
-            .hero > p { font-size: 1rem; margin-bottom: 2rem; }
-            .hero-ctas { flex-direction: column; align-items: center; }
-            .hero-ctas .btn-primary,
-            .hero-ctas .btn-secondary { width: 100%; max-width: 320px; justify-content: center; }
-            .hero-icon { width: 72px; height: 72px; }
-
-            .pillars-strip { gap: 0.5rem; justify-content: center; }
-            .pillar-chip { padding: 0.5rem 0.9rem; }
-            .pillar-chip span { font-size: 0.78rem; }
-
-            .features, .bento, .pillars-section, .spark-section, .how-it-works, .testimonials, .comparison { padding: 4rem 1.25rem; }
-            .tagline-section { padding: 4rem 1.25rem; }
-            .final-cta { padding: 5rem 1.25rem; }
-            .section-header { margin-bottom: 3rem; }
-
-            .phone-frame { width: 250px; height: 510px; }
+            .mobile-menu-btn { display: block; }
+            .section-inner { padding: 5rem 1.4rem; }
+            .manifesto { padding: 6rem 1.4rem; }
+            .final { padding: 7rem 1.4rem; }
+            .together-inner { padding: 5rem 1.4rem; }
+            .pillar-card { padding: 2.4rem 1.8rem; }
+            .coach-row { flex-wrap: wrap; gap: 0.6rem 1.4rem; }
+            .coach-orbit { max-width: 300px; }
         }
-
-        @media (max-width: 600px) {
-            .bento-grid { grid-template-columns: 1fr; }
-            .bento-card.span-2 { grid-column: span 1; }
-
-            .hero { padding: 6.5rem 1rem 2rem; }
-            .hero h1 { font-size: clamp(1.8rem, 8vw, 2.5rem); }
-            .hero > p { font-size: 0.92rem; }
-            .hero-badge { font-size: 0.75rem; padding: 0.35rem 1rem; }
-
-            .pillars-strip { gap: 0.4rem; }
-            .pillar-chip { padding: 0.4rem 0.75rem; }
-            .pillar-chip span { font-size: 0.72rem; }
-
-            .features, .bento, .pillars-section, .spark-section, .how-it-works, .testimonials, .comparison { padding: 3rem 1rem; }
-            .tagline-section { padding: 3rem 1rem; }
-            .final-cta { padding: 4rem 1rem; }
-            .section-header { margin-bottom: 2.5rem; }
-            .section-header h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
-
-            .comparison-row { grid-template-columns: 1.5fr 1fr 1fr; }
-            .comparison-cell { padding: 0.7rem 0.75rem; font-size: 0.75rem; }
-        }
-
-        /* ANIMATIONS */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .fade-in-delay-1 { transition-delay: 0.1s; }
-        .fade-in-delay-2 { transition-delay: 0.2s; }
-        .fade-in-delay-3 { transition-delay: 0.3s; }
     </style>
 </head>
 <body>
 
-    <!-- AMBIENT -->
-    <div class="ambient">
-        <div class="ambient-orb"></div>
-        <div class="ambient-orb"></div>
-        <div class="ambient-orb"></div>
-    </div>
-
-    <div class="particles" id="particles"></div>
+    <div class="sky"></div>
+    <div class="graticule"></div>
+    <div class="stars" id="stars"></div>
 
     <!-- NAV -->
     <nav>
@@ -1305,11 +712,11 @@
                 <span>SparQan</span>
             </a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#features">Features</a></li>
                 <li><a href="#pillars">Pillars</a></li>
+                <li><a href="#atlas">Features</a></li>
                 <li><a href="#spark">Spark AI</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#coming-soon" class="nav-cta">Coming Soon</a></li>
+                <li><a href="#course">How it works</a></li>
+                <li><a href="#launch" class="nav-cta">Coming soon</a></li>
             </ul>
             <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('active')" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
@@ -1318,301 +725,200 @@
     </nav>
 
     <!-- HERO -->
-    <section class="hero">
-        <div class="hero-glow"></div>
-        <img src="app-icon.png" alt="SparQan" class="hero-icon">
-        <div class="hero-badge">Coming Soon to the App Store</div>
-        <h1>Design your life<br>across <span class="gradient-text">four pillars.</span></h1>
-        <p>Most people optimize one area and neglect the rest. SparQan builds health, relationships, finances, and career — together, guided by AI coaches.</p>
-        <div class="hero-ctas">
-            <a href="#coming-soon" class="btn-primary">
-                Get Notified at Launch
-            </a>
-            <a href="#features" class="btn-secondary">Explore Features</a>
-        </div>
-
-        <div class="pillars-strip">
-            <div class="pillar-chip"><div class="pillar-dot" style="background:var(--health);color:var(--health);"></div><span>Health</span></div>
-            <div class="pillar-chip"><div class="pillar-dot" style="background:var(--relationships);color:var(--relationships);"></div><span>Relationships</span></div>
-            <div class="pillar-chip"><div class="pillar-dot" style="background:var(--finance);color:var(--finance);"></div><span>Finance</span></div>
-            <div class="pillar-chip"><div class="pillar-dot" style="background:var(--career);color:var(--career);"></div><span>Career</span></div>
-        </div>
-
-        <!-- Phone Mockup -->
-        <div class="hero-phone">
-            <div class="float-badge float-badge-left">
-                <div class="fb-row"><div class="fb-dot" style="background:var(--health);"></div><div class="fb-label">Vitality Score</div></div>
-                <div class="fb-value" style="color:var(--health);">92/100</div>
-            </div>
-            <div class="float-badge float-badge-right">
-                <div class="fb-row"><div class="fb-dot" style="background:var(--finance);"></div><div class="fb-label">Savings Goal</div></div>
-                <div class="fb-value" style="color:var(--finance);">78% done</div>
-            </div>
-            <div class="float-badge float-badge-bottom">
-                <div class="fb-row"><div class="fb-dot" style="background:var(--accent);"></div><div class="fb-label">Streak</div></div>
-                <div class="fb-value">42 days</div>
-            </div>
-
-            <div class="phone-frame">
-                <div class="phone-inner">
-                    <div class="phone-greeting">Good morning</div>
-                    <div class="phone-sub">3 goals in focus today</div>
-                    <div class="phone-pillars">
-                        <div class="phone-pillar" style="background:rgba(0,212,170,0.06);border:1px solid rgba(0,212,170,0.12);">
-                            <div class="phone-pillar-emoji">&#10084;&#65039;</div>
-                            <div class="phone-pillar-name" style="color:var(--health);">Health</div>
-                            <div class="phone-pillar-bar"><div class="phone-pillar-fill" style="width:72%;background:var(--health);"></div></div>
-                        </div>
-                        <div class="phone-pillar" style="background:rgba(255,51,170,0.06);border:1px solid rgba(255,51,170,0.12);">
-                            <div class="phone-pillar-emoji">&#129309;</div>
-                            <div class="phone-pillar-name" style="color:var(--relationships);">Relationships</div>
-                            <div class="phone-pillar-bar"><div class="phone-pillar-fill" style="width:58%;background:var(--relationships);"></div></div>
-                        </div>
-                        <div class="phone-pillar" style="background:rgba(255,170,51,0.06);border:1px solid rgba(255,170,51,0.12);">
-                            <div class="phone-pillar-emoji">&#128176;</div>
-                            <div class="phone-pillar-name" style="color:var(--finance);">Finance</div>
-                            <div class="phone-pillar-bar"><div class="phone-pillar-fill" style="width:45%;background:var(--finance);"></div></div>
-                        </div>
-                        <div class="phone-pillar" style="background:rgba(51,102,255,0.06);border:1px solid rgba(51,102,255,0.12);">
-                            <div class="phone-pillar-emoji">&#128640;</div>
-                            <div class="phone-pillar-name" style="color:var(--career);">Career</div>
-                            <div class="phone-pillar-bar"><div class="phone-pillar-fill" style="width:83%;background:var(--career);"></div></div>
-                        </div>
-                    </div>
-                    <div class="phone-spark">
-                        <div class="phone-spark-label">&#10024; Spark AI</div>
-                        <div class="phone-spark-text">You've been crushing career goals. Let's bring the same energy to savings this week.</div>
-                    </div>
-                </div>
+    <header class="hero">
+        <div>
+            <div class="hero-kicker">Coming soon to the App Store</div>
+            <h1>A life is not one goal. It is a <em>constellation.</em></h1>
+            <p class="hero-lede">Most apps optimize one corner of your life and let the rest drift. SparQan charts health, relationships, finance, and career together — four stars, one sky, guided by AI coaches who know the difference.</p>
+            <div class="hero-ctas">
+                <a href="#launch" class="btn-primary">Get notified at launch</a>
+                <a href="#pillars" class="btn-ghost">Read the chart</a>
             </div>
         </div>
-    </section>
 
-    <!-- TRUST STRIP -->
-    <section class="trust-strip">
-        <p>Built with</p>
-        <div class="trust-items">
-            <div class="trust-item">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                SwiftUI Native
-            </div>
-            <div class="trust-item">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-                End-to-End Encrypted
-            </div>
-            <div class="trust-item">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm-1-4h2v2h-2zm0-10h2v8h-2z"/></svg>
-                Dynamic Model Selection
-            </div>
-            <div class="trust-item">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z"/></svg>
-                Apple HealthKit
-            </div>
-            <div class="trust-item">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
-                Google Calendar
-            </div>
+        <div class="hero-chart" aria-hidden="true">
+            <svg viewBox="0 0 520 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- constellation lines -->
+                <line class="const-line" x1="130" y1="110" x2="400" y2="80"/>
+                <line class="const-line l2" x1="400" y1="80" x2="430" y2="330"/>
+                <line class="const-line l3" x1="430" y1="330" x2="150" y2="380"/>
+                <line class="const-line l4" x1="150" y1="380" x2="130" y2="110"/>
+
+                <!-- faint background stars -->
+                <circle cx="260" cy="230" r="1.4" fill="#E8EDFB" opacity="0.35"/>
+                <circle cx="215" cy="150" r="1" fill="#E8EDFB" opacity="0.25"/>
+                <circle cx="330" cy="185" r="1.2" fill="#E8EDFB" opacity="0.3"/>
+                <circle cx="300" cy="320" r="1" fill="#E8EDFB" opacity="0.25"/>
+                <circle cx="200" cy="290" r="1.3" fill="#E8EDFB" opacity="0.3"/>
+                <circle cx="360" cy="255" r="0.9" fill="#E8EDFB" opacity="0.2"/>
+
+                <!-- HEALTH -->
+                <circle class="const-ring" cx="130" cy="110" r="17" stroke="#5FD4A8"/>
+                <circle class="const-star" cx="130" cy="110" r="6" fill="#5FD4A8"/>
+                <text class="const-label" x="130" y="72" text-anchor="middle">Health</text>
+
+                <!-- RELATIONSHIPS -->
+                <circle class="const-ring" cx="400" cy="80" r="17" stroke="#E88BB1"/>
+                <circle class="const-star s2" cx="400" cy="80" r="6" fill="#E88BB1"/>
+                <text class="const-label" x="400" y="44" text-anchor="middle">Relationships</text>
+
+                <!-- FINANCE -->
+                <circle class="const-ring" cx="430" cy="330" r="17" stroke="#E3B65E"/>
+                <circle class="const-star s3" cx="430" cy="330" r="6" fill="#E3B65E"/>
+                <text class="const-label" x="430" y="372" text-anchor="middle">Finance</text>
+
+                <!-- CAREER -->
+                <circle class="const-ring" cx="150" cy="380" r="17" stroke="#6FA8E8"/>
+                <circle class="const-star s4" cx="150" cy="380" r="6" fill="#6FA8E8"/>
+                <text class="const-label" x="150" y="422" text-anchor="middle">Career</text>
+            </svg>
+            <div class="chart-caption">Fig. 1 — The four pillars, charted nightly.</div>
         </div>
-    </section>
+    </header>
 
-    <!-- TAGLINE -->
-    <section class="tagline-section">
-        <blockquote class="fade-in">
-            "Your life is made of four pillars.<br>Most people optimize one.<br>The extraordinary <em>design all four.</em>"
+    <!-- MANIFESTO -->
+    <section class="manifesto">
+        <blockquote class="reveal">
+            &ldquo;Your life is made of four pillars.<br>
+            Most people optimize one.<br>
+            The extraordinary <em>design all four.</em>&rdquo;
         </blockquote>
+        <div class="manifesto-attribution reveal reveal-d1">The SparQan Principle</div>
     </section>
 
-    <!-- FEATURES -->
-    <section class="features" id="features">
-        <div class="section-header">
-            <div class="section-badge">Features</div>
-            <h2>Everything to design an extraordinary life</h2>
-            <p>Smart tools that make personal growth feel intentional, not overwhelming.</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <div class="feature-icon" style="background:rgba(255,51,102,0.1);">&#127919;</div>
-                <h3>Hierarchical Goals</h3>
-                <p>Break yearly visions into quarterly, monthly, and weekly actions. Every day connects to your bigger purpose.</p>
+    <!-- PILLARS -->
+    <section id="pillars">
+        <div class="section-inner">
+            <div class="section-head reveal">
+                <div class="section-kicker">The Four Pillars</div>
+                <h2>One sky. <em>Four stars.</em></h2>
+                <p>Every goal you set belongs to one of four constellations. SparQan keeps all four in view — so career never quietly eclipses health, and money never crowds out the people you love.</p>
             </div>
-            <div class="feature-card fade-in fade-in-delay-1">
-                <div class="feature-icon" style="background:rgba(255,128,51,0.1);">&#129302;</div>
-                <h3>5 AI Coaches</h3>
-                <p>Specialized coaching for health, relationships, finance, career, and general life design. Not generic — domain-specific.</p>
-            </div>
-            <div class="feature-card fade-in fade-in-delay-2">
-                <div class="feature-icon" style="background:rgba(51,102,255,0.1);">&#127756;</div>
-                <h3>Constellation Map</h3>
-                <p>Visualize goals as a cosmic star map. Watch your constellation grow brighter as you make progress.</p>
-            </div>
-            <div class="feature-card fade-in">
-                <div class="feature-icon" style="background:rgba(0,212,170,0.1);">&#128170;</div>
-                <h3>Health & Vitality</h3>
-                <p>Track workouts, guided breathwork, and daily vitality. Syncs with Apple Health for a complete picture.</p>
-            </div>
-            <div class="feature-card fade-in fade-in-delay-1">
-                <div class="feature-icon" style="background:rgba(153,51,204,0.1);">&#128221;</div>
-                <h3>Reflection Journal</h3>
-                <p>Daily prompts, mood tracking, and AI-powered pattern analysis. Build self-awareness that drives real change.</p>
-            </div>
-            <div class="feature-card fade-in fade-in-delay-2">
-                <div class="feature-icon" style="background:rgba(255,170,51,0.1);">&#128197;</div>
-                <h3>Smart Calendar</h3>
-                <p>Day, week, and month views with Google Calendar sync. AI scheduling suggestions so nothing falls through.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- BENTO GRID -->
-    <section class="bento">
-        <div class="section-header">
-            <div class="section-badge">At a Glance</div>
-            <h2>Your life, beautifully organized</h2>
-            <p>Track progress across every dimension that matters.</p>
-        </div>
-        <div class="bento-grid">
-            <div class="bento-card span-2 fade-in">
-                <h3>&#128200; Weekly Progress</h3>
-                <p>See how each pillar is trending across the week.</p>
-                <div class="bento-visual">
-                    <div class="bento-bars">
-                        <div class="bento-bar" style="height:45%;background:var(--health);"></div>
-                        <div class="bento-bar" style="height:62%;background:var(--health);"></div>
-                        <div class="bento-bar" style="height:38%;background:var(--relationships);"></div>
-                        <div class="bento-bar" style="height:80%;background:var(--career);"></div>
-                        <div class="bento-bar" style="height:55%;background:var(--finance);"></div>
-                        <div class="bento-bar" style="height:72%;background:var(--health);"></div>
-                        <div class="bento-bar" style="height:90%;background:var(--career);"></div>
-                    </div>
+            <div class="pillars-grid">
+                <div class="pillar-card reveal" style="--pc: var(--health);">
+                    <span class="pillar-num">I.</span>
+                    <h3>Health</h3>
+                    <p>Fitness routines, nutrition habits, sleep, breathwork sessions, and daily vitality — synced with Apple Health so the picture is complete, not aspirational.</p>
+                    <div class="pillar-meta"><span>Workouts</span><span>Breathwork</span><span>Sleep</span><span>HealthKit</span></div>
                 </div>
-            </div>
-            <div class="bento-card span-2 fade-in fade-in-delay-1">
-                <h3>&#128293; Habit Streaks</h3>
-                <p>Build consistency that compounds over time.</p>
-                <div class="bento-visual">
-                    <div class="bento-streak">
-                        <div class="streak-dot" style="background:var(--health);"></div>
-                        <div class="streak-dot" style="background:var(--health);"></div>
-                        <div class="streak-dot" style="background:var(--career);"></div>
-                        <div class="streak-dot" style="background:var(--career);"></div>
-                        <div class="streak-dot" style="background:var(--finance);"></div>
-                        <div class="streak-dot" style="background:var(--relationships);"></div>
-                        <div class="streak-dot" style="background:var(--health);"></div>
-                        <div class="streak-dot" style="background:var(--career);"></div>
-                        <div class="streak-dot" style="background:var(--health);"></div>
-                        <div class="streak-dot" style="background:var(--finance);"></div>
-                        <div class="streak-dot" style="background:rgba(255,255,255,0.06);border-color:var(--border);"></div>
-                        <div class="streak-dot" style="background:rgba(255,255,255,0.06);border-color:var(--border);"></div>
-                    </div>
+                <div class="pillar-card reveal reveal-d1" style="--pc: var(--relationships);">
+                    <span class="pillar-num">II.</span>
+                    <h3>Relationships</h3>
+                    <p>The pillar every productivity app forgets. Deeper connection, better communication, quality time — and a partner mode to design goals together.</p>
+                    <div class="pillar-meta"><span>Communication</span><span>Quality time</span><span>Partner mode</span></div>
                 </div>
-            </div>
-            <div class="bento-card span-2 fade-in">
-                <h3>&#128337; Today's Timeline</h3>
-                <p>Your day, structured with intention.</p>
-                <div class="bento-visual">
-                    <div class="bento-timeline">
-                        <div class="timeline-item"><div class="timeline-dot" style="background:var(--health);"></div><span class="timeline-label">Morning run</span><span class="timeline-time">6:30 AM</span></div>
-                        <div class="timeline-item"><div class="timeline-dot" style="background:var(--career);"></div><span class="timeline-label">Deep work session</span><span class="timeline-time">9:00 AM</span></div>
-                        <div class="timeline-item"><div class="timeline-dot" style="background:var(--finance);"></div><span class="timeline-label">Review budget</span><span class="timeline-time">12:00 PM</span></div>
-                        <div class="timeline-item"><div class="timeline-dot" style="background:var(--relationships);"></div><span class="timeline-label">Call mom</span><span class="timeline-time">5:30 PM</span></div>
-                    </div>
+                <div class="pillar-card reveal reveal-d2" style="--pc: var(--finance);">
+                    <span class="pillar-num">III.</span>
+                    <h3>Finance</h3>
+                    <p>Budget habits, saving strategies, and wealth-building goals tracked with the same care as your workouts — progress you can watch compound.</p>
+                    <div class="pillar-meta"><span>Budgeting</span><span>Saving</span><span>Money habits</span></div>
                 </div>
-            </div>
-            <div class="bento-card span-2 fade-in fade-in-delay-1">
-                <h3>&#127942; Personal Standards</h3>
-                <p>Define the values you live by. AI explains why each matters.</p>
-                <div class="bento-visual">
-                    <div class="bento-timeline">
-                        <div class="timeline-item"><div class="timeline-dot" style="background:var(--health);"></div><span class="timeline-label">"I exercise 5x per week"</span></div>
-                        <div class="timeline-item"><div class="timeline-dot" style="background:var(--finance);"></div><span class="timeline-label">"I save 20% of my income"</span></div>
-                        <div class="timeline-item"><div class="timeline-dot" style="background:var(--career);"></div><span class="timeline-label">"I do 2hrs of deep work daily"</span></div>
-                        <div class="timeline-item"><div class="timeline-dot" style="background:var(--relationships);"></div><span class="timeline-label">"I have 1 date night per week"</span></div>
-                    </div>
+                <div class="pillar-card reveal reveal-d3" style="--pc: var(--career);">
+                    <span class="pillar-num">IV.</span>
+                    <h3>Career</h3>
+                    <p>Deep work sessions, skill building, and professional growth plans. Break yearly ambitions into weekly moves — every workday connects to a bigger arc.</p>
+                    <div class="pillar-meta"><span>Deep work</span><span>Skills</span><span>Milestones</span></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOUR PILLARS -->
-    <section class="pillars-section" id="pillars">
-        <div class="section-header">
-            <div class="section-badge">The Four Pillars</div>
-            <h2>A system for your whole life</h2>
-            <p>Each pillar gets its own AI coach, goals, habits, and progress tracking.</p>
-        </div>
-        <div class="pillars-grid">
-            <div class="pillar-card fade-in" style="background:linear-gradient(160deg,rgba(0,212,170,0.06),rgba(0,139,112,0.02));">
-                <div class="pillar-emoji">&#10084;&#65039;</div>
-                <h3 style="color:var(--health);">Health</h3>
-                <p>Fitness routines, nutrition habits, sleep optimization, breathwork sessions, and vitality tracking powered by Apple Health.</p>
-                <div class="pillar-tags"><span class="pillar-tag">Workouts</span><span class="pillar-tag">Breathwork</span><span class="pillar-tag">Sleep</span><span class="pillar-tag">HealthKit</span><span class="pillar-tag">Nutrition</span></div>
+    <!-- ATLAS / FEATURES -->
+    <section id="atlas">
+        <div class="section-inner">
+            <div class="section-head reveal">
+                <div class="section-kicker">The Atlas</div>
+                <h2>Instruments for <em>life design</em></h2>
+                <p>Seven instruments, one observatory. Each built to make growth feel intentional — never overwhelming.</p>
             </div>
-            <div class="pillar-card fade-in fade-in-delay-1" style="background:linear-gradient(160deg,rgba(255,51,170,0.06),rgba(153,51,204,0.02));">
-                <div class="pillar-emoji">&#129309;</div>
-                <h3 style="color:var(--relationships);">Relationships</h3>
-                <p>Deeper connections, better communication, quality time tracking, and relationship goals. Invite your partner to collaborate.</p>
-                <div class="pillar-tags"><span class="pillar-tag">Communication</span><span class="pillar-tag">Bonds</span><span class="pillar-tag">Collaboration</span><span class="pillar-tag">Partner Mode</span></div>
-            </div>
-            <div class="pillar-card fade-in" style="background:linear-gradient(160deg,rgba(255,170,51,0.06),rgba(255,119,51,0.02));">
-                <div class="pillar-emoji">&#128176;</div>
-                <h3 style="color:var(--finance);">Finance</h3>
-                <p>Budget habits, saving strategies, wealth building goals, and smart money management tracked daily.</p>
-                <div class="pillar-tags"><span class="pillar-tag">Budgeting</span><span class="pillar-tag">Saving</span><span class="pillar-tag">Wealth</span><span class="pillar-tag">Money Habits</span></div>
-            </div>
-            <div class="pillar-card fade-in fade-in-delay-1" style="background:linear-gradient(160deg,rgba(51,102,255,0.06),rgba(119,51,255,0.02));">
-                <div class="pillar-emoji">&#128640;</div>
-                <h3 style="color:var(--career);">Career</h3>
-                <p>Deep work sessions, skill building, professional growth plans, and career milestone tracking to level up.</p>
-                <div class="pillar-tags"><span class="pillar-tag">Deep Work</span><span class="pillar-tag">Skills</span><span class="pillar-tag">Growth</span><span class="pillar-tag">Milestones</span></div>
+            <div class="atlas-list">
+                <div class="atlas-row reveal">
+                    <span class="atlas-index">No. 01</span>
+                    <h3>Hierarchical goals</h3>
+                    <p>Break yearly visions into quarterly, monthly, and weekly actions. Every day connects to your bigger purpose.</p>
+                </div>
+                <div class="atlas-row reveal">
+                    <span class="atlas-index">No. 02</span>
+                    <h3>Five AI coaches</h3>
+                    <p>Specialized coaching for health, relationships, finance, career, and life design. Not generic — domain-specific.</p>
+                </div>
+                <div class="atlas-row reveal">
+                    <span class="atlas-index">No. 03</span>
+                    <h3>Constellation map</h3>
+                    <p>Your goals rendered as a star map. Watch your constellation grow brighter as you make progress.</p>
+                </div>
+                <div class="atlas-row reveal">
+                    <span class="atlas-index">No. 04</span>
+                    <h3>Reflection journal</h3>
+                    <p>Daily prompts, mood tracking, and AI-powered pattern analysis. Self-awareness that drives real change.</p>
+                </div>
+                <div class="atlas-row reveal">
+                    <span class="atlas-index">No. 05</span>
+                    <h3>Smart calendar</h3>
+                    <p>Day, week, and month views with Google Calendar sync. AI scheduling suggestions so nothing falls through.</p>
+                </div>
+                <div class="atlas-row reveal">
+                    <span class="atlas-index">No. 06</span>
+                    <h3>Personal standards</h3>
+                    <p>Define the values you live by — &ldquo;I exercise five times a week&rdquo; — and let the app hold the line with you.</p>
+                </div>
+                <div class="atlas-row reveal">
+                    <span class="atlas-index">No. 07</span>
+                    <h3>Habit streaks</h3>
+                    <p>Consistency that compounds. Streaks across all four pillars, visible at a glance.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- SPARK AI -->
-    <section class="spark-section" id="spark">
-        <div class="spark-inner">
-            <div class="spark-content fade-in">
-                <div class="section-badge">Spark AI</div>
-                <h2>Five coaches.<br>One brilliant mind.</h2>
-                <p>Spark isn't a generic chatbot. It's five specialized coaches that understand your goals, habits, and progress across every pillar of your life.</p>
-                <div class="coach-list">
-                    <div class="coach-item">
-                        <div class="coach-avatar" style="background:linear-gradient(135deg,var(--accent),var(--accent-orange));"><img src="app-icon-180.png" alt="" style="width:100%;height:100%;border-radius:22%;"></div>
-                        <div class="coach-info"><h4>General Spark</h4><p>Your all-purpose life design assistant</p></div>
-                    </div>
-                    <div class="coach-item">
-                        <div class="coach-avatar" style="background:linear-gradient(135deg,var(--health),#008B70);">&#10084;&#65039;</div>
-                        <div class="coach-info"><h4>Health Coach</h4><p>Fitness, nutrition & sleep optimization</p></div>
-                    </div>
-                    <div class="coach-item">
-                        <div class="coach-avatar" style="background:linear-gradient(135deg,var(--relationships),#9933CC);">&#129309;</div>
-                        <div class="coach-info"><h4>Relationships Coach</h4><p>Connection, communication & bonds</p></div>
-                    </div>
-                    <div class="coach-item">
-                        <div class="coach-avatar" style="background:linear-gradient(135deg,var(--finance),#FF7733);">&#128176;</div>
-                        <div class="coach-info"><h4>Finance Coach</h4><p>Budgets, saving & wealth building</p></div>
-                    </div>
-                    <div class="coach-item">
-                        <div class="coach-avatar" style="background:linear-gradient(135deg,var(--career),#7733FF);">&#128640;</div>
-                        <div class="coach-info"><h4>Career Coach</h4><p>Deep work, skills & professional growth</p></div>
+    <section id="spark">
+        <div class="section-inner">
+            <div class="spark-grid">
+                <div class="coach-orbit reveal" aria-hidden="true">
+                    <div class="orbit-ring"></div>
+                    <div class="orbit-ring inner"></div>
+                    <div class="orbit-center">Spark&nbsp;AI</div>
+                    <div class="orbit-rotator">
+                        <div class="orbit-node">&#127793;</div>
+                        <div class="orbit-node">&#129309;</div>
+                        <div class="orbit-node">&#128176;</div>
+                        <div class="orbit-node">&#128640;</div>
+                        <div class="orbit-node">&#10024;</div>
                     </div>
                 </div>
-            </div>
-            <div class="spark-visual fade-in">
-                <div class="chat-mockup">
-                    <div class="chat-header">
-                        <div class="chat-header-dot"><img src="app-icon-180.png" alt="Spark"></div>
-                        <div><h4>Spark</h4><small>General Coach</small></div>
+                <div>
+                    <div class="section-head reveal" style="margin-bottom: 2.5rem;">
+                        <div class="section-kicker">Spark AI</div>
+                        <h2>Five coaches. <em>One orbit.</em></h2>
+                        <p>Generic advice is worse than none. Each Spark coach is tuned to its own domain — and they all see the whole sky, so career advice never comes at health's expense.</p>
                     </div>
-                    <div class="chat-messages">
-                        <div class="chat-msg user">I want to get promoted this year but I've been neglecting my health</div>
-                        <div class="chat-msg ai">That's a common trap! Let's design a plan that fuels your career <em>through</em> better health. I'll create a morning routine that gives you energy for deep work, plus a weekly review to keep both pillars growing.</div>
-                        <div class="chat-msg user">Yes, set it up</div>
-                        <div class="chat-msg ai">Done! I created 2 new goals with daily habits across Health and Career. Check your pillars. &#10024;</div>
-                    </div>
-                    <div class="chat-input">
-                        <span>Ask Spark anything...</span>
-                        <div class="chat-input-send"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+                    <div class="coach-list reveal reveal-d1">
+                        <div class="coach-row">
+                            <div class="coach-dot" style="background: var(--gold); box-shadow: 0 0 8px var(--gold);"></div>
+                            <h4>General Spark</h4>
+                            <p>The view from above — all four pillars at once.</p>
+                        </div>
+                        <div class="coach-row">
+                            <div class="coach-dot" style="background: var(--health); box-shadow: 0 0 8px var(--health);"></div>
+                            <h4>Health Coach</h4>
+                            <p>Fitness, nutrition, sleep, and momentum.</p>
+                        </div>
+                        <div class="coach-row">
+                            <div class="coach-dot" style="background: var(--relationships); box-shadow: 0 0 8px var(--relationships);"></div>
+                            <h4>Relationships Coach</h4>
+                            <p>Connection, communication, and the people who matter.</p>
+                        </div>
+                        <div class="coach-row">
+                            <div class="coach-dot" style="background: var(--finance); box-shadow: 0 0 8px var(--finance);"></div>
+                            <h4>Finance Coach</h4>
+                            <p>Budgets, saving habits, and goals that compound.</p>
+                        </div>
+                        <div class="coach-row">
+                            <div class="coach-dot" style="background: var(--career); box-shadow: 0 0 8px var(--career);"></div>
+                            <h4>Career Coach</h4>
+                            <p>Deep work, skills, and ambition broken into winnable weeks.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1620,162 +926,92 @@
     </section>
 
     <!-- HOW IT WORKS -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="section-header">
-            <div class="section-badge">How It Works</div>
-            <h2>From vision to action in minutes</h2>
-            <p>SparQan's Life Design flow turns your ambitions into a structured plan.</p>
-        </div>
-        <div class="steps">
-            <div class="step fade-in">
-                <div class="step-num">1</div>
-                <h3>Define Your Vision</h3>
-                <p>Tell Spark about your ideal life. It asks the right questions to understand what matters across all four pillars.</p>
+    <section id="course">
+        <div class="section-inner">
+            <div class="section-head reveal">
+                <div class="section-kicker">How it works</div>
+                <h2>Plot the course. <em>Keep watch.</em></h2>
             </div>
-            <div class="step fade-in fade-in-delay-1">
-                <div class="step-num">2</div>
-                <h3>AI Builds Your Plan</h3>
-                <p>Spark generates yearly goals, breaks them into quarters, months, and weeks — with daily habits attached.</p>
-            </div>
-            <div class="step fade-in fade-in-delay-2">
-                <div class="step-num">3</div>
-                <h3>Grow Your Constellation</h3>
-                <p>Complete habits, reflect daily, and watch your star map light up. Spark coaches you every step of the way.</p>
+            <div class="steps-grid">
+                <div class="step-item reveal">
+                    <h3>Chart your <em>sky</em></h3>
+                    <p>Tell Spark about your ideal life. It asks the right questions, then builds yearly goals broken into quarters, months, and weeks — with daily habits attached.</p>
+                </div>
+                <div class="step-item reveal reveal-d1">
+                    <h3>Navigate <em>daily</em></h3>
+                    <p>Each morning, see the handful of moves that matter today — with a Spark coach on call when you drift off course.</p>
+                </div>
+                <div class="step-item reveal reveal-d2">
+                    <h3>Watch it <em>brighten</em></h3>
+                    <p>Complete habits, reflect daily, and watch your star map light up. Progress renders as light — a constellation that glows brighter every week you show up.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- COMPARISON -->
-    <section class="comparison">
-        <div class="section-header">
-            <div class="section-badge">Why SparQan</div>
-            <h2>Not another task manager</h2>
-            <p>Built for life design, not just productivity.</p>
-        </div>
-        <div class="comparison-table fade-in">
-            <div class="comparison-row header">
-                <div class="comparison-cell">Feature</div>
-                <div class="comparison-cell">SparQan</div>
-                <div class="comparison-cell">Others</div>
+    <!-- TOGETHER / PARTNER MODE -->
+    <section class="together">
+        <div class="together-inner reveal">
+            <div class="together-stars" aria-hidden="true">
+                <div class="together-star" style="background: var(--gold); box-shadow: 0 0 14px var(--gold);"></div>
+                <div class="together-line"></div>
+                <div class="together-star" style="background: var(--relationships); box-shadow: 0 0 14px var(--relationships); animation-delay: -2s;"></div>
             </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">4-pillar life system</div>
-                <div class="comparison-cell"><span class="check">&#10003;</span></div>
-                <div class="comparison-cell"><span class="cross">&#10005;</span></div>
-            </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Specialized AI coaches</div>
-                <div class="comparison-cell"><span class="check">&#10003;</span></div>
-                <div class="comparison-cell"><span class="cross">&#10005;</span></div>
-            </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Hierarchical goal planning</div>
-                <div class="comparison-cell"><span class="check">&#10003;</span></div>
-                <div class="comparison-cell"><span class="cross">&#10005;</span></div>
-            </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Visual constellation map</div>
-                <div class="comparison-cell"><span class="check">&#10003;</span></div>
-                <div class="comparison-cell"><span class="cross">&#10005;</span></div>
-            </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Partner collaboration</div>
-                <div class="comparison-cell"><span class="check">&#10003;</span></div>
-                <div class="comparison-cell"><span class="cross">&#10005;</span></div>
-            </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Workout & breathwork tracker</div>
-                <div class="comparison-cell"><span class="check">&#10003;</span></div>
-                <div class="comparison-cell"><span class="cross">&#10005;</span></div>
-            </div>
-            <div class="comparison-row">
-                <div class="comparison-cell">Daily reflection journal</div>
-                <div class="comparison-cell"><span class="check">&#10003;</span></div>
-                <div class="comparison-cell"><span class="check">&#10003;</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONIALS -->
-    <section class="testimonials">
-        <div class="section-header">
-            <div class="section-badge">Early Access</div>
-            <h2>What beta testers are saying</h2>
-        </div>
-        <div class="testimonials-grid">
-            <div class="testimonial-card fade-in">
-                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <blockquote>"Finally an app that doesn't just track tasks — it actually helps me think about my whole life. The four pillars changed everything."</blockquote>
-                <div class="testimonial-author">Alex R.</div>
-                <div class="testimonial-role">Product Manager</div>
-            </div>
-            <div class="testimonial-card fade-in fade-in-delay-1">
-                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <blockquote>"The AI coaches feel like having a real mentor. My career coach spotted that I was neglecting health and helped me rebalance."</blockquote>
-                <div class="testimonial-author">Priya K.</div>
-                <div class="testimonial-role">Software Engineer</div>
-            </div>
-            <div class="testimonial-card fade-in fade-in-delay-2">
-                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <blockquote>"My partner and I use the collaboration feature. We design our finances together and keep each other accountable. Game changer."</blockquote>
-                <div class="testimonial-author">Marcus T.</div>
-                <div class="testimonial-role">Entrepreneur</div>
-            </div>
+            <h2>Two skies, <em>one chart.</em></h2>
+            <p>Invite your partner and design goals together — shared finances, shared rituals, shared accountability. Some constellations are meant to be drawn by two hands.</p>
         </div>
     </section>
 
     <!-- FINAL CTA -->
-    <section class="final-cta" id="coming-soon">
-        <img src="app-icon.png" alt="SparQan" class="hero-icon" style="position:relative;">
-        <h2>Your journey begins soon.</h2>
-        <p>Stop juggling. Start designing. Build the life you actually want.</p>
-        <a href="mailto:support@sparqan.com?subject=SparQan%20Waitlist" class="btn-primary" style="font-size:1.05rem;padding:1rem 2.8rem;">
-            Get Notified at Launch
-        </a>
-        <div class="final-tagline">goal &middot; habit &middot; clarity</div>
+    <section class="final" id="launch">
+        <img src="app-icon.png" alt="SparQan" class="final-icon">
+        <h2>The sky is <em>waiting.</em></h2>
+        <p>SparQan is in the final stretch before launch. Leave your email and be first under the stars.</p>
+        <a href="mailto:support@sparqan.com?subject=SparQan%20Waitlist" class="btn-primary" style="font-size: 1rem; padding: 1rem 2.6rem; position: relative;">Get notified at launch</a>
+        <div class="final-note">iPhone · Coming soon</div>
     </section>
 
     <!-- FOOTER -->
     <footer>
         <div class="footer-inner">
+            <div class="footer-brand">SparQan — design all four.</div>
             <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
-                <a href="#">Contact</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
                 <a href="mailto:support@sparqan.com">support@sparqan.com</a>
             </div>
-            <p>&copy; 2026 SparQan. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Particles
-        const particlesEl = document.getElementById('particles');
-        for (let i = 0; i < 60; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = Math.random() * 100 + '%';
-            p.style.top = Math.random() * 100 + '%';
-            p.style.animationDelay = -Math.random() * 4 + 's';
-            p.style.animationDuration = (3 + Math.random() * 4) + 's';
-            p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
-            particlesEl.appendChild(p);
-        }
+        // Star field
+        (function () {
+            const wrap = document.getElementById('stars');
+            let html = '';
+            for (let i = 0; i < 90; i++) {
+                const x = (Math.random() * 100).toFixed(2);
+                const y = (Math.random() * 100).toFixed(2);
+                const s = Math.random() < 0.85 ? 1 : 2;
+                const dur = (3 + Math.random() * 5).toFixed(1);
+                const delay = (Math.random() * -8).toFixed(1);
+                const max = (0.3 + Math.random() * 0.5).toFixed(2);
+                html += '<div class="star" style="left:' + x + '%;top:' + y + '%;width:' + s + 'px;height:' + s + 'px;--dur:' + dur + 's;--delay:' + delay + 's;--max:' + max + ';"></div>';
+            }
+            wrap.innerHTML = html;
+        })();
 
-        // Fade-in observer
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Nav shadow on scroll
-        window.addEventListener('scroll', () => {
-            document.querySelector('nav').style.boxShadow =
-                window.scrollY > 50 ? '0 4px 30px rgba(0,0,0,0.4)' : 'none';
-        });
+        // Scroll reveal
+        (function () {
+            const io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+        })();
     </script>
 </body>
 </html>
